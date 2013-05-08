@@ -3,6 +3,22 @@ package it.rz.algoritmi;
 public class MyLinkedList {
 
 	private static boolean DEBUG = true;
+
+	/**
+	 * Il primo elemento della lista.
+	 */
+	private MyLinkedList.Node head = null;
+	
+	/**
+	 * L'ultimo elemento della lista.
+	 */
+	private MyLinkedList.Node last = null;
+	
+	/**
+	 * Il numero di elementi della lista.
+	 */
+	private int count = 0;
+
 	/**
 	 * Esegue un esempio di utilizzo / basic unit test&debug.
 	 * @param args
@@ -87,22 +103,6 @@ public class MyLinkedList {
 	}
 
 	/**
-	 * Il primo elemento della lista.
-	 */
-	private MyLinkedList.Node head = null;
-	
-	/**
-	 * L'ultimo elemento della lista.
-	 */
-	private MyLinkedList.Node last = null;
-	
-	/**
-	 * Il numero di elementi della lista.
-	 */
-	private int count = 0;
-
-
-	/**
 	 * Crea una lista vuota.
 	 */
 	public MyLinkedList() {
@@ -127,6 +127,27 @@ public class MyLinkedList {
 		// *! side effect !* 
 		// addNodes imposta il conteggio ed il nodo corrente
 		addNodesValue(head);
+	}
+	
+	/**
+	 * @return the head
+	 */
+	public MyLinkedList.Node getHead() {
+		return head;
+	}
+
+	/**
+	 * @return the last
+	 */
+	public MyLinkedList.Node getLast() {
+		return last;
+	}
+
+	/**
+	 * @return the count
+	 */
+	public int getCount() {
+		return count;
 	}
 	
 	/**
@@ -204,7 +225,7 @@ public class MyLinkedList {
 	 * @param start Il nodo da cui partire.
 	 * @return Il numero di nodi atraversati; 0 se il nodo passato era null.
 	 */
-	private static int countNodesRecursive(Node start) {
+	public static int countNodesRecursive(Node start) {
 		int counter = 0;
 		//Node current = start;
 		if (start != null) {
