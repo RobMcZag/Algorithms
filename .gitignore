@@ -1,1 +1,8 @@
+# Java class files
 *.class
+
+# generated files
+Algoritmi/bin/**
+
+# Local configuration file (sdk path, etc)
+local.properties
