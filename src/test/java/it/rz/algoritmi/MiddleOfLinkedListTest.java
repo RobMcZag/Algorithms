@@ -58,4 +58,19 @@ public class MiddleOfLinkedListTest {
 		
 		assertEquals(middle, actual);
 	}
+	
+	@Test
+	public void isOddIsTrueForOddNumbers() {
+		boolean actual = MiddleOfLinkedList.isOdd(101);
+		
+		assertTrue(actual);
+	}
+	
+	@Test
+	public void isOddIsFalseForEvenNumbers() {
+		boolean actual = MiddleOfLinkedList.isOdd(12);
+		
+		assertFalse(actual);
+	}
+	
 }
