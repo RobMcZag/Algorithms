@@ -17,4 +17,14 @@ public class MiddleOfLinkedListTest {
 		assertNull(actual);
 	}
 
+	@Test
+	public void theMiddleOfAnListContainingJustAnItemIsTheItemItself() {
+		LinkedList<Object> list = new LinkedList<Object>();
+		Object anObject = new Object();
+		list.add(anObject);
+		
+		Object actual = MiddleOfLinkedList.findMiddle(list);
+		
+		assertEquals(anObject, actual);
+	}
 }
