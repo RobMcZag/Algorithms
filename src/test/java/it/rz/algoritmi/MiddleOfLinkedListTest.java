@@ -30,10 +30,26 @@ public class MiddleOfLinkedListTest {
 	
 	@Test
 	public void getsTheMiddleOfAList() {
-		LinkedList<Object> list = new LinkedList<Object>();
-		list.add(new Object());
-		list.add(new Object());
 		Object middle = new Object();
+		LinkedList<Object> list = new LinkedList<Object>();
+
+		list.add(new Object());
+		list.add(new Object());
+		list.add(middle );
+		list.add(new Object());
+		list.add(new Object());
+		
+		Object actual = MiddleOfLinkedList.findMiddle(list);
+		
+		assertEquals(middle, actual);
+	}
+	
+	@Test
+	public void getsTheMiddleOfAListWithAnOddNumberOfItems() {
+		Object middle = new Object();
+		LinkedList<Object> list = new LinkedList<Object>();
+
+		list.add(new Object());
 		list.add(middle );
 		list.add(new Object());
 		list.add(new Object());
