@@ -2,7 +2,16 @@
 *.class
 
 # generated files
-Algoritmi/bin/**
+build/**
+
+.gradle/**
+
+# Eclipse
+.classpath
+.project
+.settings/**
 
 # Local configuration file (sdk path, etc)
 local.properties
+/build
+/bin/
