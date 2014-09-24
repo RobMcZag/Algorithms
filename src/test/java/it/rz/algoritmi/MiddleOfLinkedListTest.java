@@ -27,4 +27,19 @@ public class MiddleOfLinkedListTest {
 		
 		assertEquals(anObject, actual);
 	}
+	
+	@Test
+	public void getsTheMiddleOfAList() {
+		LinkedList<Object> list = new LinkedList<Object>();
+		list.add(new Object());
+		list.add(new Object());
+		Object middle = new Object();
+		list.add(middle );
+		list.add(new Object());
+		list.add(new Object());
+		
+		Object actual = MiddleOfLinkedList.findMiddle(list);
+		
+		assertEquals(middle, actual);
+	}
 }
