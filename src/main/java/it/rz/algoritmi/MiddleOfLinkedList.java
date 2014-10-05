@@ -28,7 +28,7 @@ public class MiddleOfLinkedList {
 	}
 	
 	private static LinkedList<Object> setupList(int n) {
-		LinkedList<Object> lista = new LinkedList<>();
+		LinkedList<Object> lista = new LinkedList<Object>();
 		for (int i = 1; i <= n; i++) {
 			lista.add(Integer.valueOf(i));
 		}
