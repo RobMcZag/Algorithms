@@ -43,16 +43,21 @@ public class MiddleOfLinkedList {
 	 */
 	public static Object findMiddle(LinkedList<Object> lista) {
 		Object inMezzo = null;
-		int p = 1;
+		int contatore = 1;
 		Iterator<Object> i = lista.iterator();
 		Iterator<Object> dispari = lista.iterator();
 		
 		while (i.hasNext()) {
 			i.next();
-			if ( (p++ % 2) == 1 ) {  // se p è dispari
-				inMezzo = (Object) dispari.next();;
+			if ( isOdd(contatore) ) {
+				inMezzo = dispari.next();;
 			}			
+			contatore++;
 		}
 		return inMezzo;
+	}
+
+	static boolean isOdd(int p) {
+		return (p % 2) == 1;
 	}
 }
