@@ -15,3 +15,6 @@ build/**
 local.properties
 /build
 /bin/
+
+# local info files
+*.local.txt

@@ -1,11 +1,18 @@
 package it.rz.algoritmi;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ArrayOperations<T> {
 
+	public static void main(String[] args) {
+		String s = "Hello World";
+		System.out.println("* rec => "+reverseRecursive(s));
+	}
+	
 	/**
 	 * Verifica se l'array passato ha dei duplicati.
 	 * Implementato aggiungendo l'array ad un set e 
@@ -39,5 +46,26 @@ public class ArrayOperations<T> {
 		}
 		return false;
 	}
+
+	/*
+	public static <T> boolean hasDuplicateRecursive(T... objs) {
+		if (objs == null) return false;
+		if (objs.length <= 1) return false;
+		Arrays.
+		return false;
+	}
+	 */
+
+	public static String reverse(String str) {
+		StringBuffer sb = new StringBuffer(str);
+		return sb.reverse().toString();
+	}
 	
+	public static String reverseRecursive(String str) {
+		if (str == null) return null;
+		if (str.length() == 1) return str;
+		return reverseRecursive(str.substring(1))+str.charAt(0);
+	}
+	
+
 }
