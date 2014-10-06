@@ -166,7 +166,7 @@ public class MyLinkedList {
 	 * @param start Il nodo da cui iniziare ad aggiungere una catena.
 	 * @return Il numero di nodi della catena appena aggiunta, incluso quello passato.
 	 * 		   Se il nodo passato è null viene ritornato 0. 
-	 * @deprecated use {@link addNodesValue()} instead.
+	 * @deprecated This method has Many potential side effects. Use {@link addNodesValue()} instead.
 	 */
 	@Deprecated 
 	public int addNodes(Node start) {
