@@ -23,7 +23,7 @@ public class Anagrammi {
 	 * @param args Il primo parametro è il nome del file con le parole.
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		String fileName = FILE_NAME;
 		if (args.length > 0)
 			fileName = args[0];
@@ -74,17 +74,21 @@ public class Anagrammi {
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			System.err.println(e);
             System.exit(1);
 		} finally {
-			s.close();
+			if ( s != null) {
+				s.close();
+			}
 		}
 		return m;
 	}
 
 	private static String alphabetize(String word) {
-		// TODO Auto-generated method stub
+
 		char[] chars = word.toCharArray();
 		Arrays.sort(chars); 
 		return new String(chars);
