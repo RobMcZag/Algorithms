@@ -87,7 +87,12 @@ public class Anagrammi {
 		return m;
 	}
 
-	private static String alphabetize(String word) {
+	/**
+	 * Order alphabetically the characters in the passed String
+	 * @param word	The string to order. If it contains spaces they will be at the start of the ordered result.
+	 * @return The passed string's letters ordered alphabetically 
+	 */
+	protected static String alphabetize(String word) {
 
 		char[] chars = word.toCharArray();
 		Arrays.sort(chars); 
