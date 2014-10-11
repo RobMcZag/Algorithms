@@ -3,7 +3,6 @@
 
 # generated files
 build/**
-
 .gradle/**
 
 # Eclipse
@@ -13,8 +12,6 @@ build/**
 
 # Local configuration file (sdk path, etc)
 local.properties
-/build
-/bin/
 
 # local info files
 *.local.txt
