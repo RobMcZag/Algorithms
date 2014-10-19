@@ -15,3 +15,5 @@ local.properties
 
 # local info files
 *.local.txt
+/build/
+/bin/
