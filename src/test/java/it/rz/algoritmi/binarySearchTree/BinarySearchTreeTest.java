@@ -35,4 +35,13 @@ public class BinarySearchTreeTest {
 		assertTrue(result);
 		assertFalse(tree.isEmpty());
 	}
+	
+	@Test(expected = NullPointerException.class)
+	public void ShouldNotAddNull() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+
+		assertNotNull(tree);
+		boolean result = tree.add(null);
+	}
+	
 }

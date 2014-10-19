@@ -101,4 +101,19 @@ public class BasicNodeTest {
 		assertNull(node.left);
 	}
 	
+	@Test(expected = NullPointerException.class)
+	public void shouldNotAddNullValue() {
+		BasicNode<Integer> node = new BasicNode<Integer>(5);
+		
+		boolean result = node.add((Integer)null);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void shouldNotAddNullNOde() {
+		BasicNode<Integer> node = new BasicNode<Integer>(5);
+		BasicNode<Integer> newNode = null;
+		
+		boolean result = node.add(newNode);
+	}
+	
 }
