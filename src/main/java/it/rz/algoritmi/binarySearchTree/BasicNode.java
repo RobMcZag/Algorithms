@@ -36,26 +36,24 @@ public class BasicNode<V extends Comparable<V>> implements Node<V> {
 	
 	public boolean add(Node<V> node) {
 		if (node == null) {
-			addNull();
+			addNullNode();
 		} else {
-			switch (this.value.compareTo(node.getValue())) {
-			case 1:
+			int comparison = this.value.compareTo(node.getValue());
+			if (comparison == 0) {
+				return false;	// Equal to current value, nothing added
+			} else if (comparison > 0) {
 				if (this.left == null) {
 					this.left = node;
 				} else {
 					return this.left.add(node);
 				}
-				break;
-			case 0:
-				return false;	// Equal to current value, nothing added
-			case -1:
+			} else {
 				if (this.right == null) {
 					this.right = node;
 				} else {
 					return this.right.add(node);
 				}
-				break;
-			}
+			} // if comparison
 		}
 		return true;
 	}
@@ -67,7 +65,64 @@ public class BasicNode<V extends Comparable<V>> implements Node<V> {
 	 * At this time <null> is not supported, so we will throw an unchecked exception.
 	 * @throws NullPointerException
 	 */
-	private void addNull() {
+	private void addNullNode() {
 		throw new NullPointerException("NULL nodes are not supported.");
 	}
+	
+	
+	public boolean contains(Node<V> node) {
+		return contains(node.getValue());
+	}
+	
+	public boolean contains(V value) {
+		if (value == null) {
+			return (this.value == null);
+		} else {
+			int comparison = value.compareTo(this.value);
+			if (comparison == 0) {
+				return true;	// Equal to current value, found
+			} else if (comparison < 0) {
+				if (this.left == null) {
+					return false;
+				} else {
+					return this.left.contains(value);
+				}
+			} else {
+				if (this.right == null) {
+					return false;
+				} else {
+					return this.right.contains(value);
+				}
+			} // if comparison
+		}
+	}
+
+	
+	public Node<V> search(Node<V> node) {
+		return search(node.getValue());
+	}
+	
+	public Node<V> search(V value) {
+		if ((value == null) && (this.value == null)) {
+			return this;
+		} else {
+			int comparison = value.compareTo(this.value);
+			if (comparison == 0) {
+				return this;	// Equal to current value, found
+			} else if (comparison < 0) {
+				if (this.left == null) {
+					return null;
+				} else {
+					return this.left.search(value);
+				}
+			} else {
+				if (this.right == null) {
+					return null;
+				} else {
+					return this.right.search(value);
+				}
+			} // if comparison
+		}
+	}
+
 }
