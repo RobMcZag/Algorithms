@@ -247,12 +247,100 @@ public class BasicNodeTest {
 		
 	}
 
-	/*
-	@Ignore @Test
-	public void whyDate() throws ParseException {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
-		Date d = df.parse("2009-11-10 23:00:00 UTC");
-		System.out.format("Date millis are: %,d | hex: %x", d.getTime(), d.getTime());
+	@Test
+	public void shouldRemoveValueFromSingleNode() {
+		BasicNode<Integer> node = new BasicNode<Integer>(5);
+		
+		Node result = node.remove(5);
+		assertNull(result);
 	}
-	*/
+
+	@Test
+	public void shouldRemoveValueFromNodeWithLeftOnly() {
+		BasicNode<Integer> node = new BasicNode<Integer>(5);
+		node.add(2);
+		
+		Node<Integer> result = node.remove(5);
+		assertNotNull(result);
+		assertEquals(2, result.getValue().intValue());
+	}
+
+	@Test
+	public void shouldRemoveValueFromNodeWithRightOnly() {
+		BasicNode<Integer> node = new BasicNode<Integer>(5);
+		node.add(9);
+		
+		Node<Integer> result = node.remove(5);
+		assertNotNull(result);
+		assertEquals(9, result.getValue().intValue());
+	}
+	
+	@Test
+	public void shouldRemoveValueFromNodeWithLeftAndRight() {
+		BasicNode<Integer> node = new BasicNode<Integer>(5);
+		node.add(9);
+		node.add(2);
+		
+		Node<Integer> result = node.remove(5);
+		assertNotNull(result);
+		assertTrue(result.contains(9));
+		assertTrue(result.contains(2));
+	}
+	
+	@Test
+	public void shouldNotRemoveMissingValue() {
+		BasicNode<Integer> node = new BasicNode<Integer>(100);
+		node.add(50);
+		node.add(200);
+		node.add(150);
+		node.add(300);
+		node.add(250);
+		node.add(400);
+		node.add(350);
+		node.add(500);
+		node.add(550);
+		
+		Node<Integer> result = node.remove(333);
+		assertNotNull(result);
+		assertTrue(result.contains(100));
+		assertTrue(result.contains(50));
+		assertTrue(result.contains(200));
+		assertTrue(result.contains(150));
+		assertTrue(result.contains(300));
+		assertTrue(result.contains(250));
+		assertTrue(result.contains(400));
+		assertTrue(result.contains(350));
+		assertTrue(result.contains(500));
+		assertTrue(result.contains(550));
+	}
+	
+	@Test
+	public void shouldRemoveValueInsideManyLeaves() {
+		BasicNode<Integer> node = new BasicNode<Integer>(100);
+		node.add(50);
+		node.add(200);
+		node.add(150);
+		node.add(300);
+		node.add(250);
+		node.add(400);
+		node.add(350);
+		node.add(500);
+		node.add(550);
+		assertTrue(node.contains(300));
+		
+		Node<Integer> result = node.remove(300);
+		assertNotNull(result);
+		assertTrue(result.contains(100));
+		assertTrue(result.contains(50));
+		assertTrue(result.contains(200));
+		assertTrue(result.contains(150));
+		assertFalse(result.contains(300));
+		assertTrue(result.contains(250));
+		assertTrue(result.contains(400));
+		assertTrue(result.contains(350));
+		assertTrue(result.contains(500));
+		assertTrue(result.contains(550));
+	}
+	
+	
 }
