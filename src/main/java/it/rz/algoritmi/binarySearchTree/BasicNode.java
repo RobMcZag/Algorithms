@@ -147,32 +147,33 @@ public class BasicNode<V extends Comparable<V>> implements Node<V> {
 	public Node<V> remove(V value) {
 		if ( ((value == null) && (this.value == null)) 
 			 || (value.compareTo(this.value) == 0) ) {
+			
 			if (this.left == null) {
 				return this.right;
 			}
 			if (this.right == null) {
 				return this.left;
 			}
+			
 			this.right.add(this.left);
 			return this.right;
+		
 		} else {
+			
 			if (value.compareTo(this.value) < 0) {
-				if (this.left == null) {
-					return this;
-				} else {
+				if (this.left != null) {
 					this.left = this.left.remove(value);
-					return this;
 				}
 			} else {
-				if (this.right == null) {
-					return this;
-				} else {
+				if (this.right != null) {
 					this.right = this.right.remove(value);
-					return this;
 				}
-			} // if comparison
+			} 
+			
+			return this;
 		}
 		
-	}
+	} /* public Node<V> remove(V value) */
 
-}
+
+} /* end of class */
