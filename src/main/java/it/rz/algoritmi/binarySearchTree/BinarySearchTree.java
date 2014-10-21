@@ -12,6 +12,13 @@ public class BinarySearchTree<V extends Comparable<V>> {
 	 * boolean	contains(Object o) method says: 
 	 * "returns true if and only if this collection contains at least one element e such that (o==null ? e==null : o.equals(e))."
 	 */
+	public boolean contains(V value) {
+		if (root == null) {
+			return (value == null);
+		} else {
+			return root.contains(value);			
+		}
+	}
 	
 	/**
 	 * int	size()

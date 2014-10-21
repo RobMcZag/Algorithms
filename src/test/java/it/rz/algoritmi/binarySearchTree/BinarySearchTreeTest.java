@@ -44,4 +44,60 @@ public class BinarySearchTreeTest {
 		boolean result = tree.add(null);
 	}
 	
+	@Test
+	public void ShouldAddDifferentValues() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		assertNotNull(tree);
+
+		boolean result = tree.add(5);
+		assertTrue(result);
+		
+		result= tree.add(-5);
+		assertTrue(result);
+		
+		result= tree.add(1);
+		assertTrue(result);
+		
+		result= tree.add(0);
+		assertTrue(result);
+		
+		result= tree.add(-1);
+		assertTrue(result);
+	}
+
+	@Test
+	public void ShouldNotAddTheSameValueTwice() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		assertNotNull(tree);
+
+		boolean result = tree.add(5);
+		assertTrue(result);
+		
+		result= tree.add(5);
+		assertFalse(result);
+	}
+
+	@Test
+	public void ShouldContainAnAddedValue() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		assertNotNull(tree);
+		boolean result = tree.add(5);
+		assertTrue(result);
+		
+		assertTrue(tree.contains(5));
+	}
+	
+	@Test
+	public void ShouldNotContainAnUnaddedValue() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		assertNotNull(tree);
+		boolean result = tree.add(5);
+		assertTrue(result);
+		
+		assertFalse(tree.contains(7));
+		assertFalse(tree.contains(2));
+		assertFalse(tree.contains(0));
+		assertFalse(tree.contains(-2));
+	}
+	
 }
