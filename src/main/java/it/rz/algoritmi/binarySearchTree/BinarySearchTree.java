@@ -1,5 +1,7 @@
 package it.rz.algoritmi.binarySearchTree;
 
+import java.util.List;
+
 public class BinarySearchTree<V extends Comparable<V>> {
 	
 	private Node<V> root = null;
@@ -24,11 +26,14 @@ public class BinarySearchTree<V extends Comparable<V>> {
 	 * int	size()
 	 * Returns the number of elements in this collection.
 	 */
+	public int	size() {
+		return  (root == null) ? 0:	root.size();
+	}
 	
 	/**
 	 * Returns true if this collection contains no elements.
 	 */
-	boolean	isEmpty() {
+	public boolean	isEmpty() {
 		return (root == null);
 	}
 	
@@ -36,6 +41,9 @@ public class BinarySearchTree<V extends Comparable<V>> {
 	 * void	clear()
 	 * Removes all of the elements from this collection (optional operation).
 	 */
+	public void clear() {
+		this.root = null;
+	}
 	
 	/**
 	 * boolean	add(E e)
@@ -63,12 +71,21 @@ public class BinarySearchTree<V extends Comparable<V>> {
 		}
 	}
 	
+
+	/**
+	 * List the values contained in this tree in the order set by the cmpareTo() method on the Values V
+	 * @return an ordered List of values 
+	 */
+	public List<V> listValues() {
+		return this.root.listValues();
+	}
+	
 	/**
 	 * boolean	equals(Object o)
 	 * Compares the specified object with this collection for equality.
 	 */
+	public boolean equals(BinarySearchTree<V> tree) {
+		return listValues().equals(tree.listValues());
+	}
 	
-	/**
-	 * 
-	 */
 }

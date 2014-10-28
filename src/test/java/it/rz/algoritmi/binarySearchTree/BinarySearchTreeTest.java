@@ -2,6 +2,8 @@ package it.rz.algoritmi.binarySearchTree;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -146,6 +148,121 @@ public class BinarySearchTreeTest {
 		boolean result = tree.remove(null);
 		assertTrue(result);
 		assertFalse(tree.contains(null));
+	}
+
+	@Test
+	public void SizeOfEmptyTreeIsZero() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+
+		assertEquals(0, tree.size());
+	}
+	
+	@Test
+	public void SizeOfSingleNodeTreeIsOne() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		tree.add(500);
+
+		assertEquals(1, tree.size());
+	}
+	
+	@Test
+	public void SizeOfTreeWithFiveConnectedNodesIsFive() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		tree.add(50);
+		tree.add(200);
+		tree.add(550);
+		tree.add(150);
+		tree.add(950);
+
+		assertEquals(5, tree.size());
+	}
+
+	@Test
+	public void DupesShouldNotCountTowardSize() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		tree.add(50);
+		tree.add(200);
+		tree.add(200);
+		tree.add(150);
+		tree.add(150);
+
+		assertEquals(3, tree.size());
+	}
+	
+	@Test
+	public void shouldListNodeValue() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		tree.add(50);
+		tree.add(200);
+		tree.add(100);
+		
+		List<Integer> list = tree.listValues();
+		assertEquals(50, list.get(0).intValue());
+		assertEquals(100, list.get(1).intValue());
+		assertEquals(200, list.get(2).intValue());
+	}
+
+	@Test
+	public void shouldListNegativeValues() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		tree.add(0);
+		tree.add(-200);
+		tree.add(100);
+		tree.add(-50);
+		tree.add(50);
+		
+		List<Integer> list = tree.listValues();
+		assertEquals(-200, list.get(0).intValue());
+		assertEquals(-50, list.get(1).intValue());
+		assertEquals(0, list.get(2).intValue());
+		assertEquals(50, list.get(3).intValue());
+		assertEquals(100, list.get(4).intValue());
+	}
+
+	@Test
+	public void shouldListManyValues() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		tree.add(50);
+		tree.add(200);
+		tree.add(550);
+		tree.add(150);
+		tree.add(250);
+		tree.add(300);
+		tree.add(100);
+		tree.add(400);
+		tree.add(350);
+		tree.add(500);
+		
+		List<Integer> list = tree.listValues();
+		assertEquals(50, list.get(0).intValue());
+		assertEquals(100, list.get(1).intValue());
+		assertEquals(150, list.get(2).intValue());
+		assertEquals(200, list.get(3).intValue());
+		assertEquals(250, list.get(4).intValue());
+		assertEquals(300, list.get(5).intValue());
+		assertEquals(350, list.get(6).intValue());
+		assertEquals(400, list.get(7).intValue());
+		assertEquals(500, list.get(8).intValue());
+		assertEquals(550, list.get(9).intValue());
+	}
+	
+	@Test
+	public void shouldBeEqualIfContainsTheSameValues() {
+		BinarySearchTree<Integer> tree1 = new BinarySearchTree<Integer>();
+		tree1.add(0);
+		tree1.add(-200);
+		tree1.add(100);
+		tree1.add(-50);
+		tree1.add(50);
+		
+		BinarySearchTree<Integer> tree2 = new BinarySearchTree<Integer>();
+		tree2.add(100);
+		tree2.add(-200);
+		tree2.add(50);
+		tree2.add(0);
+		tree2.add(-50);
+		
+		assertTrue(tree1.equals(tree2));
 	}
 
 }
