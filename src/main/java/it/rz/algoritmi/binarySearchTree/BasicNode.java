@@ -144,9 +144,13 @@ public class BasicNode<V extends Comparable<V>> implements Node<V> {
 		return remove(node.getValue());
 	}
 
+	/**
+	 * Removes the node for the passed value and returns the remaining node chain starting from this node.
+	 * @param value the value to remove from the tree referenced by this node
+	 * @return the tree referenced by this node after removing the required value, if present.
+	 */
 	public Node<V> remove(V value) {
-		if ( ((value == null) && (this.value == null)) 
-			 || (value.compareTo(this.value) == 0) ) {
+		if ( (value == null) ? (this.value == null) : (value.compareTo(this.value) == 0) ) {
 			
 			if (this.left == null) {
 				return this.right;
@@ -160,7 +164,7 @@ public class BasicNode<V extends Comparable<V>> implements Node<V> {
 		
 		} else {
 			
-			if (value.compareTo(this.value) < 0) {
+			if ((value == null) || (value.compareTo(this.value) < 0)) {
 				if (this.left != null) {
 					this.left = this.left.remove(value);
 				}

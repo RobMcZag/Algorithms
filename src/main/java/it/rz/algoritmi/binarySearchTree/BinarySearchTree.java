@@ -51,6 +51,19 @@ public class BinarySearchTree<V extends Comparable<V>> {
 	}
 	
 	/**
+	 * boolean	remove(E e)
+	 * Ensures that this collection contains the specified element (optional operation).
+	 */
+	public boolean remove(V value) {
+		if (root == null) {
+			return false;
+		} else {
+			this.root = this.root.remove(value);
+			return true;		
+		}
+	}
+	
+	/**
 	 * boolean	equals(Object o)
 	 * Compares the specified object with this collection for equality.
 	 */

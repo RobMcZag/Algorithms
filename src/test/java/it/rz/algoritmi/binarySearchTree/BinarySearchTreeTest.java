@@ -100,4 +100,52 @@ public class BinarySearchTreeTest {
 		assertFalse(tree.contains(-2));
 	}
 	
+	@Test
+	public void ShouldBeOKRemovingAnUnaddedValue() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		boolean result = tree.add(5);
+		
+		result = tree.remove(2);
+		assertTrue(result);
+		assertFalse(tree.contains(2));
+		assertTrue(tree.contains(5));
+	}
+
+	@Test
+	public void ShouldBeOKRemovingAnAddedValue() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		boolean result = tree.add(5);
+		
+		result = tree.remove(5);
+		assertTrue(result);
+		assertFalse(tree.contains(5));
+	}
+
+	@Test
+	public void ShouldBeOKRemovingAnAddedValueInInternalNode() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		tree.add(5);
+		tree.add(9);
+		tree.add(7);
+		tree.add(8);
+		
+		assertTrue(tree.contains(7));
+		boolean result = tree.remove(7);
+		assertTrue(result);
+		assertFalse(tree.contains(7));
+	}
+
+	@Test
+	public void ShouldBeOKRemovingNull() {
+		BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
+		tree.add(5);
+		tree.add(9);
+		tree.add(7);
+		tree.add(8);
+		
+		boolean result = tree.remove(null);
+		assertTrue(result);
+		assertFalse(tree.contains(null));
+	}
+
 }
