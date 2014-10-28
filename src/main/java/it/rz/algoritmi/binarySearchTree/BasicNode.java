@@ -1,9 +1,15 @@
 package it.rz.algoritmi.binarySearchTree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * A simple node of a BinarySearchTree holding a value of type V and being able to connect to other nodes.
+ * Nodes are stored "left" if their value is lass than this node's value or right if it's higher.
+ * 
  * @author Roberto
  *
- * @param <V>
+ * @param <V> The value type contained in a node.
  */
 public class BasicNode<V extends Comparable<V>> implements Node<V> {
 
@@ -179,5 +185,42 @@ public class BasicNode<V extends Comparable<V>> implements Node<V> {
 		
 	} /* public Node<V> remove(V value) */
 
+	
+	
+	/**
+	 * List values accessible from this node in the order set by the cmpareTo() method
+	 * @return an ordered List of values 
+	 */
+	public List<V> listValues() {
+		List<V> list = new ArrayList<V>(); 
+		if(this.left != null){
+			list.addAll(this.left.listValues());
+		}
+		
+		list.add(getValue());
+		
+		if(this.right != null){
+			list.addAll(this.right.listValues());
+		}
+		
+		return list;
+	}
+
+	/**
+	 * @return the number of elements connected to this node.
+	 */
+	public int size() {
+		return this.listValues().size();
+		
+	}
+	
+	/**
+	 * boolean	equals(Object o)
+	 * Compares the specified object with this collection for equality.
+	 */
+	public boolean equals(Node<V> node) {
+		return listValues().equals(node.listValues());
+	}
+	
 
 } /* end of class */

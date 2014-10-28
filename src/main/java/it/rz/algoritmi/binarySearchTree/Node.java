@@ -1,5 +1,7 @@
 package it.rz.algoritmi.binarySearchTree;
 
+import java.util.List;
+
 public interface Node<V> {
 
 	public V getValue();
@@ -19,4 +21,10 @@ public interface Node<V> {
 	public Node<V> remove(Node<V> node);
 	public Node<V> remove(V value);
 
+	public List<V> listValues();
+	
+	public boolean equals(Node<V> node);
+
+	public int size();
+	
 }
