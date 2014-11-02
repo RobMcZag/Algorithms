@@ -119,14 +119,15 @@ public class BinaryMinHeapTest {
 			assertTrue(bmh.isEmpty());
 		}
 
-		@Ignore 
 		@Test
-		public void isEmptyshouldBeFalseForABinaryMinHeapWithContent() {
+		public void addShouldMakeHeapNotEmpty() {
+//		public void isEmptyshouldBeFalseForABinaryMinHeapWithContent() {
 			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 			
-			fail("There still is no way to add something to this Heap");
+			bmh.add(5);
 			assertFalse(bmh.isEmpty());
 		}
+		
 
 	// getMinimum
 		@Test(expected=BinaryMinHeapException.class)
@@ -136,18 +137,24 @@ public class BinaryMinHeapTest {
 			assertEquals(0, bmh.getMinimum().intValue());
 		}
 
-		@Ignore 
+		@Test
+		public void firstAddShouldBeHeapMinimum() {
+			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+			
+			bmh.add(5);
+			assertEquals(5, bmh.getMinimum().intValue());
+		}
+		
 		@Test
 		public void getMinimumShouldReturnCorrectMinimumForABinaryMinHeapWithContent() {
 			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 			
-			fail("There still is no way to add something to this Heap");
-			assertEquals(0, bmh.getMinimum().intValue());
+			bmh.add(5);
+			bmh.add(3);
+			assertEquals(3, bmh.getMinimum().intValue());
 		}
-	/*
-	@Test
-	public void should() {
-	}
+		
+		/*
 
 	@Test
 	public void should() {
