@@ -1,17 +1,13 @@
 package it.rz.algoritmi.binaryHeap;
 
-public class BinaryMinHeapException extends RuntimeException {
+public class BinaryHeapException extends RuntimeException {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-//		public BinaryMinHeapException() {
-//			super();
-//		}
-	
-	public BinaryMinHeapException(String message) {
+	public BinaryHeapException(String message) {
 		super(message);
 	}
 	
