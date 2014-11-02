@@ -110,6 +110,24 @@ public class BinaryMinHeapTest {
 		assertEquals(123, bmh.getParentIndex(248));
 	}
 
+
+	// isEmpty
+		@Test
+		public void isEmptyshouldBeTrueForANewlyCreatedBinaryMinHeap() {
+			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+			
+			assertTrue(bmh.isEmpty());
+		}
+
+		@Ignore 
+		@Test
+		public void isEmptyshouldBeFalseForABinaryMinHeapWithContent() {
+			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+			
+			fail("There still is no way to add something to this Heap");
+			assertFalse(bmh.isEmpty());
+		}
+
 	/*
 	@Test
 	public void should() {
