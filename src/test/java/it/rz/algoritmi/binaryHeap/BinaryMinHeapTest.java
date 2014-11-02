@@ -133,7 +133,7 @@ public class BinaryMinHeapTest {
 		public void getMinimumShouldFailForANewlyCreatedBinaryMinHeap() {
 			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 			
-			assertEquals(0, bmh.getMinimum());
+			assertEquals(0, bmh.getMinimum().intValue());
 		}
 
 		@Ignore 
@@ -142,7 +142,7 @@ public class BinaryMinHeapTest {
 			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 			
 			fail("There still is no way to add something to this Heap");
-			assertEquals(0, bmh.getMinimum());
+			assertEquals(0, bmh.getMinimum().intValue());
 		}
 	/*
 	@Test
