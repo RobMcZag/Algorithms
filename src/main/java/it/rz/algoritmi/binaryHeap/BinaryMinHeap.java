@@ -20,4 +20,26 @@ public class BinaryMinHeap<V> {
 		this.data = (V[]) Array.newInstance(clazz, NUMERO_NODI_INIZIALI);
 	}
 
+
+	public int getLeftIndex(int currentIndex) {
+		if (currentIndex < 0 ) {
+			throw new BinaryMinHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
+		}
+		return (2 * currentIndex) + 1;
+	}
+
+	public int getRightIndex(int currentIndex) {
+		if (currentIndex < 0 ) {
+			throw new BinaryMinHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
+		}
+		return (2 * currentIndex) + 2;
+	}
+
+	public int getParentIndex(int currentIndex) {
+		if (currentIndex <= 0 ) {
+			throw new BinaryMinHeapException("The currentIndex can not be zero or negative. Passed index was:" + currentIndex); 
+		}
+		return (currentIndex -1) / 2;
+	}
+
 }
