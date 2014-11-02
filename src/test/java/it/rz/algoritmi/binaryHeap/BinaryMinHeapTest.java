@@ -1,7 +1,7 @@
 package it.rz.algoritmi.binaryHeap;
 
 import static org.junit.Assert.*;
-import it.rz.algoritmi.binaryHeap.BinaryMinHeapException;
+import it.rz.algoritmi.binaryHeap.BinaryHeapException;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class BinaryMinHeapTest {
 	 * but I am afraid this could easily cause infinite loops;
 	 * solution 3 to me is bad.
 	 */
-	@Test(expected = BinaryMinHeapException.class)
+	@Test(expected = BinaryHeapException.class)
 	public void shouldCalculateParentOfRoot() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		
@@ -55,21 +55,21 @@ public class BinaryMinHeapTest {
 	/**
 	 * Indexes run from 0 (included) upwards, so passing a negative index should throw an exception.
 	 */
-	@Test(expected = BinaryMinHeapException.class)
+	@Test(expected = BinaryHeapException.class)
 	public void shouldCalculateLeftOfNegativeIndexes() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		
 		assertEquals(12345, bmh.getLeftIndex(-1));
 	}
 	
-	@Test(expected = BinaryMinHeapException.class)
+	@Test(expected = BinaryHeapException.class)
 	public void shouldCalculateRightOfNegativeIndexes() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		
 		assertEquals(-12345, bmh.getRightIndex(-5));
 	}
 	
-	@Test(expected = BinaryMinHeapException.class)
+	@Test(expected = BinaryHeapException.class)
 	public void shouldCalculateParentOfNegativeIndexes() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		
@@ -112,56 +112,124 @@ public class BinaryMinHeapTest {
 
 
 	// isEmpty
-		@Test
-		public void isEmptyshouldBeTrueForANewlyCreatedBinaryMinHeap() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			
-			assertTrue(bmh.isEmpty());
-		}
-
-		@Test
-		public void addShouldMakeHeapNotEmpty() {
-//		public void isEmptyshouldBeFalseForABinaryMinHeapWithContent() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			
-			bmh.add(5);
-			assertFalse(bmh.isEmpty());
-		}
-		
-
-	// getMinimum
-		@Test(expected=BinaryMinHeapException.class)
-		public void getMinimumShouldFailForANewlyCreatedBinaryMinHeap() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			
-			assertEquals(0, bmh.getMinimum().intValue());
-		}
-
-		@Test
-		public void firstAddShouldBeHeapMinimum() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			
-			bmh.add(5);
-			assertEquals(5, bmh.getMinimum().intValue());
-		}
-		
-		@Test
-		public void getMinimumShouldReturnCorrectMinimumForABinaryMinHeapWithContent() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			
-			bmh.add(5);
-			bmh.add(3);
-			assertEquals(3, bmh.getMinimum().intValue());
-		}
-		
-		/*
-
 	@Test
-	public void should() {
+	public void isEmptyshouldBeTrueForANewlyCreatedBinaryMinHeap() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		
+		assertTrue(bmh.isEmpty());
 	}
 
 	@Test
+	public void addShouldMakeHeapNotEmpty() {
+//		public void isEmptyshouldBeFalseForABinaryMinHeapWithContent() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		
+		bmh.add(5);
+		assertFalse(bmh.isEmpty());
+	}
+	
+	@Test
+	public void addShouldIncreaseNodeCount() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		
+		bmh.add(99);
+		assertEquals(1, bmh.getNumberOfNodes());
+
+		bmh.add(-9);
+		assertEquals(2, bmh.getNumberOfNodes());
+	}
+	
+
+// getMinimum
+	@Test(expected=BinaryHeapException.class)
+	public void getMinimumShouldFailForANewlyCreatedBinaryMinHeap() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		
+		assertEquals(0, bmh.getMinimum().intValue());
+	}
+
+	@Test
+	public void firstAddShouldBeHeapMinimum() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		
+		bmh.add(5);
+		assertEquals(5, bmh.getMinimum().intValue());
+	}
+	
+	@Test
+	public void getMinimumShouldReturnCorrectMinimumForABinaryMinHeapWithContent() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		
+		bmh.add(5);
+		bmh.add(3);
+		assertEquals(3, bmh.getMinimum().intValue());
+	}
+		
+		/**
+		 * Answering the data for an index out of bounds is not an easy answer.
+		 * Possible answers are:
+		 * 1. you are out of bounds => throw exception;
+		 * 2. I have no value for that index => return null, like accessing an existing, but empty position;
+		 * 
+		 * I adopted solution 1 that I like as uses language constructs to handle corner cases;
+		 * also the 2nd solution has some appeal, but I prefer the solution from standard Java libs.
+		 */
+	@Test(expected=BinaryHeapOutOfBoundsException.class)
+		public void getDataShouldThrowExceptionForNegativeIndices() {
+			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+			bmh.getData(-1);
+		}
+
+		@Test(expected=BinaryHeapOutOfBoundsException.class)
+		public void getDataShouldThrowExceptionForBigIndices() {
+			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+			bmh.getData(BinaryMinHeap.NUMERO_NODI_INIZIALI * 2);
+		}
+
+		@Test(expected=BinaryHeapOutOfBoundsException.class)
+		public void getDataShouldThrowExceptionForEmptyHeap() {
+			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+			assertNull(bmh.getData(0));
+		}
+
+		@Test
+		public void getDataShouldWorkForExistingPositionInHeap() {
+			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+			bmh.add(5);
+			assertEquals(5, bmh.getData(0).intValue());
+		}
+		
+		
+		@Ignore @Test
+		public void siftShouldReverseUnorderedNodes() {
+			// TODO write test
+			fail("HEi! Implement me!");
+		}
+		
+		@Ignore @Test
+		public void siftShouldNotReverseOrderedNodes() {
+			// TODO write test
+			fail("HEi! Implement me!");
+		}
+		
+		@Ignore @Test
+		public void siftShouldNotReverseSameValueNodes() {
+			// TODO write test
+			fail("HEi! Implement me!");
+		}
+		
+	/*
+
+	@Ignore @Test
 	public void should() {
+			// TODO write test
+			fail("HEi! Implement me!");
+	}
+
+	@Ignore @Test
+	public void should() {
+			// TODO write test
+			fail("HEi! Implement me!");
 	}
 	*/
 

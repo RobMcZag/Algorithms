@@ -20,9 +20,30 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	protected static final int NUMERO_NODI_INIZIALI =  (1 << NUMERO_LIVELLI_INIZIALI)-1;
 			// OK for NUMERO_LIVELLI_INIZIALI <= 31 | NUMERO_NODI_INIZIALI ==> 2.147.483.647
 			// for NUMERO_LIVELLI_INIZIALI > 31 ==> NUMERO_NODI_INIZIALI = (int) Math.pow(2, NUMERO_LIVELLI_INIZIALI);
+	protected static final int MAX_NODI_AGGIUNTI =  (1 << (NUMERO_LIVELLI_INIZIALI * 2) );
 	
 	private final V[] data;
 	private int numberOfNodes = 0;
+
+	/**
+	 * @return the numberOfNodes
+	 */
+	protected int getNumberOfNodes() {
+		return numberOfNodes;
+	}
+	
+	
+	/**
+	 * Gives the value stored in the requested position in the data structure underlying this heap.
+	 * @return the data at a certain position
+	 */
+	protected V getData(int position) {
+		if(position < 0 || position >= numberOfNodes) {
+			throw new BinaryHeapOutOfBoundsException("Requested position ("+position+") is out of bounds as current Heap contains " +numberOfNodes+ " nodes.");
+		}
+		return data[position];
+	}
+
 
 	@SuppressWarnings("unchecked")
 	public BinaryMinHeap(Class<V> clazz) {
@@ -31,21 +52,21 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 
 	protected int getLeftIndex(int currentIndex) {
 		if (currentIndex < 0 ) {
-			throw new BinaryMinHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
+			throw new BinaryHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
 		}
 		return (2 * currentIndex) + 1;
 	}
 
 	protected int getRightIndex(int currentIndex) {
 		if (currentIndex < 0 ) {
-			throw new BinaryMinHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
+			throw new BinaryHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
 		}
 		return (2 * currentIndex) + 2;
 	}
 
 	protected int getParentIndex(int currentIndex) {
 		if (currentIndex <= 0 ) {
-			throw new BinaryMinHeapException("The currentIndex can not be zero or negative. Passed index was:" + currentIndex); 
+			throw new BinaryHeapException("The currentIndex can not be zero or negative. Passed index was:" + currentIndex); 
 		}
 		return (currentIndex -1) / 2;
 	}
@@ -56,15 +77,34 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 
 	public V getMinimum() {
 		if (isEmpty()) {
-			throw new BinaryMinHeapException("There is no minimum in an Empty Heap.");
+			throw new BinaryHeapException("There is no minimum in an Empty Heap.");
 		}
 		return data[0];
 	}
 
 	public void add(V value) {
-		// check if data has room
+		// check if value is null
 		
+		// check if data has room for new value & grow it if it does not
+		
+		// insert the new data & update node count
 		data[numberOfNodes++]=value;
+		
+		// sift the new data in the right position
+		sift(numberOfNodes - 1);
+	}
+
+	protected void sift(int index) {
+		if (isRootNode(index)) {
+			return;
+		}
+		int parent = getParentIndex(index);
+		// TODO finish method
+	}
+
+
+	private boolean isRootNode(int index) {
+		return (index == 0);
 	}
 	
 	
