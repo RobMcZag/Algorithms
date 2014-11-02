@@ -2,7 +2,7 @@ package it.rz.algoritmi.binaryHeap;
 
 import java.lang.reflect.Array;
 
-public class BinaryMinHeap<V> {
+public class BinaryMinHeap<V extends Comparable<V>> {
 	
 	/*
 	 * Number of nodes is N = sum(2^l) for l from 0 to the number of levels-1.
@@ -13,29 +13,28 @@ public class BinaryMinHeap<V> {
 	protected static final int NUMERO_NODI_INIZIALI = (2^NUMERO_LIVELLI_INIZIALI)-1;
 	
 	private final V[] data;
-	private int heapNumberOfNodes = 0;
+	private int numberOfNodes = 0;
 
 	@SuppressWarnings("unchecked")
 	public BinaryMinHeap(Class<V> clazz) {
 		this.data = (V[]) Array.newInstance(clazz, NUMERO_NODI_INIZIALI);
 	}
 
-
-	public int getLeftIndex(int currentIndex) {
+	protected int getLeftIndex(int currentIndex) {
 		if (currentIndex < 0 ) {
 			throw new BinaryMinHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
 		}
 		return (2 * currentIndex) + 1;
 	}
 
-	public int getRightIndex(int currentIndex) {
+	protected int getRightIndex(int currentIndex) {
 		if (currentIndex < 0 ) {
 			throw new BinaryMinHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
 		}
 		return (2 * currentIndex) + 2;
 	}
 
-	public int getParentIndex(int currentIndex) {
+	protected int getParentIndex(int currentIndex) {
 		if (currentIndex <= 0 ) {
 			throw new BinaryMinHeapException("The currentIndex can not be zero or negative. Passed index was:" + currentIndex); 
 		}
@@ -43,7 +42,14 @@ public class BinaryMinHeap<V> {
 	}
 
 	public boolean isEmpty() {
-		return (this.heapNumberOfNodes == 0);
+		return (this.numberOfNodes == 0);
+	}
+
+	public V getMinimum() {
+		if (isEmpty()) {
+			throw new BinaryMinHeapException("There is no minimum in an Empty Heap.");
+		}
+		return null;
 	}
 	
 }
