@@ -22,8 +22,8 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 			// for NUMERO_LIVELLI_INIZIALI > 31 ==> NUMERO_NODI_INIZIALI = (int) Math.pow(2, NUMERO_LIVELLI_INIZIALI);
 	protected static final int MAX_NODI_AGGIUNTI =  (1 << (NUMERO_LIVELLI_INIZIALI * 2) );
 	
-	private final V[] data;
-	private int numberOfNodes = 0;
+	final V[] data;
+	int numberOfNodes = 0;
 
 	/**
 	 * @return the numberOfNodes
@@ -83,14 +83,14 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	}
 
 	public void add(V value) {
-		// check if value is null
+		// TODO check if value is null
 		
-		// check if data has room for new value & grow it if it does not
+		// TODO check if data has room for new value & grow it if it does not
 		
 		// insert the new data & update node count
 		data[numberOfNodes++]=value;
 		
-		// sift the new data in the right position
+		// TODO sift the new data in the right position
 		sift(numberOfNodes - 1);
 	}
 
@@ -99,9 +99,19 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 			return;
 		}
 		int parent = getParentIndex(index);
-		// TODO finish method
+		if(needSwitch(this.data[index], this.data[parent])) {
+			V temp = this.data[index];
+			this.data[index] = this.data[parent];
+			this.data[parent] = temp;
+			
+			sift(parent);
+		}
 	}
 
+
+	protected boolean needSwitch(V nodeValue, V parentValue) {
+		return (nodeValue.compareTo(parentValue) < 0);
+	}
 
 	private boolean isRootNode(int index) {
 		return (index == 0);
