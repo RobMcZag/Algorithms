@@ -42,4 +42,8 @@ public class BinaryMinHeap<V> {
 		return (currentIndex -1) / 2;
 	}
 
+	public boolean isEmpty() {
+		return (this.heapNumberOfNodes == 0);
+	}
+	
 }
