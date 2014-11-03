@@ -175,70 +175,92 @@ public class BinaryMinHeapTest {
 		 * also the 2nd solution has some appeal, but I prefer the solution from standard Java libs.
 		 */
 	@Test(expected=BinaryHeapOutOfBoundsException.class)
-		public void getDataShouldThrowExceptionForNegativeIndices() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			bmh.getData(-1);
-		}
+	public void getDataShouldThrowExceptionForNegativeIndices() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.getData(-1);
+	}
 
-		@Test(expected=BinaryHeapOutOfBoundsException.class)
-		public void getDataShouldThrowExceptionForBigIndices() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			bmh.getData(BinaryMinHeap.NUMERO_NODI_INIZIALI * 2);
-		}
+	@Test(expected=BinaryHeapOutOfBoundsException.class)
+	public void getDataShouldThrowExceptionForBigIndices() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.getData(BinaryMinHeap.NUMERO_NODI_INIZIALI * 2);
+	}
 
-		@Test(expected=BinaryHeapOutOfBoundsException.class)
-		public void getDataShouldThrowExceptionForEmptyHeap() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			assertNull(bmh.getData(0));
-		}
+	@Test(expected=BinaryHeapOutOfBoundsException.class)
+	public void getDataShouldThrowExceptionForEmptyHeap() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		assertNull(bmh.getData(0));
+	}
 
-		@Test
-		public void getDataShouldWorkForExistingPositionInHeap() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			bmh.add(5);
-			assertEquals(5, bmh.getData(0).intValue());
-		}
-		
-		@Test
-		public void needSwitchShouldBeTrueForUnorderedAndFalseForEqualOrOrdered() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			assertTrue(bmh.needSwitch(3,  5));
-			assertFalse(bmh.needSwitch(5,  3));
-			assertFalse(bmh.needSwitch(5,  5));
-		}
+	@Test
+	public void getDataShouldWorkForExistingPositionInHeap() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.add(5);
+		assertEquals(5, bmh.getData(0).intValue());
+	}
+	
+	@Test
+	public void needSwitchShouldBeTrueForUnorderedAndFalseForEqualOrOrdered() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		assertTrue(bmh.needSwitch(3,  5));
+		assertFalse(bmh.needSwitch(5,  3));
+		assertFalse(bmh.needSwitch(5,  5));
+	}
 
+	
+	@Test
+	public void siftShouldReverseUnorderedNodes() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.data[0] = 5;
+		bmh.data[1] = 3;
+		bmh.sift(1);
+		assertEquals(3, bmh.data[0].intValue());
+		assertEquals(5, bmh.data[1].intValue());
 		
-		@Test
-		public void siftShouldReverseUnorderedNodes() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			bmh.data[0] = 5;
-			bmh.data[1] = 3;
-			bmh.sift(1);
-			assertEquals(3, bmh.data[0].intValue());
-			assertEquals(5, bmh.data[1].intValue());
-			
+	}
+	
+	@Test
+	public void siftShouldNotReverseOrderedNodes() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.data[0] = 3;
+		bmh.data[1] = 5;
+		bmh.sift(1);
+		assertEquals(3, bmh.data[0].intValue());
+		assertEquals(5, bmh.data[1].intValue());
+	}
+	
+	@Test
+	public void siftShouldNotReverseSameValueNodes() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.data[0] = 5;
+		bmh.data[1] = 5;
+		bmh.sift(1);
+		assertEquals(5, bmh.data[0].intValue());
+		assertEquals(5, bmh.data[1].intValue());
+	}
+	
+	@Test(expected=BinaryHeapException.class)
+	public void shouldNotAddNullValue() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.add(null);
+	}
+	
+	@Test
+	public void addShouldLeaveUpdatedHeadValue() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		
+		int count = 0;
+		for (int value = (BinaryMinHeap.NUMERO_NODI_INIZIALI+1) ; value > - (BinaryMinHeap.NUMERO_NODI_INIZIALI+1) ; value--) {
+//			System.out.println(bmh.toString());
+			bmh.add(value);
+			assertEquals(value, bmh.getMinimum().intValue());
+			assertEquals(++count, bmh.getNumberOfNodes());
 		}
+//		assertEquals("6 nodes : { -2, 0, -1, 3, 1, 2, null, null}", bmh.toString());
+//		System.out.println(bmh.toString());
 		
-		@Test
-		public void siftShouldNotReverseOrderedNodes() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			bmh.data[0] = 3;
-			bmh.data[1] = 5;
-			bmh.sift(1);
-			assertEquals(3, bmh.data[0].intValue());
-			assertEquals(5, bmh.data[1].intValue());
-		}
-		
-		@Test
-		public void siftShouldNotReverseSameValueNodes() {
-			BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-			bmh.data[0] = 5;
-			bmh.data[1] = 5;
-			bmh.sift(1);
-			assertEquals(5, bmh.data[0].intValue());
-			assertEquals(5, bmh.data[1].intValue());
-		}
-		
+	}
+
 	/*
 
 	@Ignore @Test

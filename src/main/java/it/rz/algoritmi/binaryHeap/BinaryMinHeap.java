@@ -16,13 +16,13 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	 * E.g. for 4 levels => N = 2^0 + 2^1 + 2^2 + 2^3 = 1 + 2 + 4 + 8 = 15 
 	 * Is that N = 2^l -1     ===>    l = log2(N+1) 
 	 */
-	protected static final int NUMERO_LIVELLI_INIZIALI = 2;
+	protected static final int NUMERO_LIVELLI_INIZIALI = 4;
 	protected static final int NUMERO_NODI_INIZIALI =  (1 << NUMERO_LIVELLI_INIZIALI)-1;
 			// OK for NUMERO_LIVELLI_INIZIALI <= 31 | NUMERO_NODI_INIZIALI ==> 2.147.483.647
 			// for NUMERO_LIVELLI_INIZIALI > 31 ==> NUMERO_NODI_INIZIALI = (int) Math.pow(2, NUMERO_LIVELLI_INIZIALI);
 	protected static final int MAX_NODI_AGGIUNTI =  (1 << (NUMERO_LIVELLI_INIZIALI * 2) );
 	
-	final V[] data;
+	V[] data;
 	int numberOfNodes = 0;
 
 	/**
@@ -83,16 +83,26 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	}
 
 	public void add(V value) {
-		// TODO check if value is null
+		if (value == null) {
+			throw new BinaryHeapException("Can not add a null value");
+		}
 		
-		// TODO check if data has room for new value & grow it if it does not
+		if (numberOfNodes >= this.data.length) {
+			extendDataArray();
+		}
 		
-		// insert the new data & update node count
-		data[numberOfNodes++]=value;
+		this.data[numberOfNodes++]=value;
 		
-		// TODO sift the new data in the right position
 		sift(numberOfNodes - 1);
 	}
+
+	private void extendDataArray() {
+		@SuppressWarnings("unchecked")
+		V[] newData = (V[]) Array.newInstance(this.data[0].getClass(), Math.min((((this.data.length + 1) * 2 ) - 1), MAX_NODI_AGGIUNTI));
+ 		System.arraycopy(this.data, 0, newData, 0, this.data.length);
+ 		this.data = newData;
+	}
+
 
 	protected void sift(int index) {
 		if (isRootNode(index)) {
@@ -116,6 +126,21 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	private boolean isRootNode(int index) {
 		return (index == 0);
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(this.numberOfNodes + " nodes : { ");
+		for (int i = 0; i < this.data.length; i++) {
+			sb.append(this.data[i]).append(", ");
+		}
+		sb.replace(sb.length()-2, sb.length(), "}");
+		return sb.toString();
+	}
+	
 	
 	
 }
