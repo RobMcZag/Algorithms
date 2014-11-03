@@ -75,9 +75,9 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 		return (this.numberOfNodes == 0);
 	}
 
-	public V getMinimum() {
+	public V getHead() {
 		if (isEmpty()) {
-			throw new BinaryHeapException("There is no minimum in an Empty Heap.");
+			throw new BinaryHeapException("There is no head in an Empty Heap.");
 		}
 		return data[0];
 	}
@@ -93,7 +93,7 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 		
 		this.data[numberOfNodes++]=value;
 		
-		sift(numberOfNodes - 1);
+		siftIn(numberOfNodes - 1);
 	}
 
 	private void extendDataArray() {
@@ -104,7 +104,7 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	}
 
 
-	protected void sift(int index) {
+	protected void siftIn(int index) {
 		if (isRootNode(index)) {
 			return;
 		}
@@ -114,7 +114,7 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 			this.data[index] = this.data[parent];
 			this.data[parent] = temp;
 			
-			sift(parent);
+			siftIn(parent);
 		}
 	}
 
@@ -139,6 +139,53 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 		}
 		sb.replace(sb.length()-2, sb.length(), "}");
 		return sb.toString();
+	}
+
+
+	public V removeHead() {
+		if (isEmpty()) {
+			throw new BinaryHeapException("Can not remove Head from an Empty Heap");
+		}
+		
+		V head = this.data[0];
+		this.data[0] = this.data[--numberOfNodes];
+		this.data[numberOfNodes] = null;
+		
+		if (! isEmpty()) {
+			siftOut(0);
+		}
+		
+		return head;
+	}
+
+
+	protected void siftOut(int index) {
+		int minIdx = getMinChildIndex(index);
+		
+		if (this.data[index].compareTo(this.data[minIdx]) > 0 ) {
+			V temp = this.data[index];
+			this.data[index] = this.data[minIdx];
+			this.data[minIdx] = temp;
+			siftOut(minIdx);
+		}
+		
+	}
+
+
+	protected int getMinChildIndex(int index) {
+		int leftIdx = getLeftIndex(index);
+		if (leftIdx >= numberOfNodes) {
+			return index;
+		}
+		int rightIdx = getRightIndex(index);
+		V leftValue = this.data[leftIdx];
+		V rightValue = this.data[rightIdx];
+		
+		if (rightValue == null || leftValue.compareTo(rightValue) <= 0) {
+			return leftIdx;
+		} else {
+			return rightIdx;
+		}
 	}
 	
 	

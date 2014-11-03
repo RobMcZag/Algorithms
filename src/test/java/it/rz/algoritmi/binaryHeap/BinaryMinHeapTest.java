@@ -145,7 +145,7 @@ public class BinaryMinHeapTest {
 	public void getMinimumShouldFailForANewlyCreatedBinaryMinHeap() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		
-		assertEquals(0, bmh.getMinimum().intValue());
+		assertEquals(0, bmh.getHead().intValue());
 	}
 
 	@Test
@@ -153,7 +153,7 @@ public class BinaryMinHeapTest {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		
 		bmh.add(5);
-		assertEquals(5, bmh.getMinimum().intValue());
+		assertEquals(5, bmh.getHead().intValue());
 	}
 	
 	@Test
@@ -162,7 +162,7 @@ public class BinaryMinHeapTest {
 		
 		bmh.add(5);
 		bmh.add(3);
-		assertEquals(3, bmh.getMinimum().intValue());
+		assertEquals(3, bmh.getHead().intValue());
 	}
 		
 		/**
@@ -209,32 +209,32 @@ public class BinaryMinHeapTest {
 
 	
 	@Test
-	public void siftShouldReverseUnorderedNodes() {
+	public void siftInShouldReverseUnorderedNodes() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		bmh.data[0] = 5;
 		bmh.data[1] = 3;
-		bmh.sift(1);
+		bmh.siftIn(1);
 		assertEquals(3, bmh.data[0].intValue());
 		assertEquals(5, bmh.data[1].intValue());
 		
 	}
 	
 	@Test
-	public void siftShouldNotReverseOrderedNodes() {
+	public void siftInShouldNotReverseOrderedNodes() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		bmh.data[0] = 3;
 		bmh.data[1] = 5;
-		bmh.sift(1);
+		bmh.siftIn(1);
 		assertEquals(3, bmh.data[0].intValue());
 		assertEquals(5, bmh.data[1].intValue());
 	}
 	
 	@Test
-	public void siftShouldNotReverseSameValueNodes() {
+	public void siftInShouldNotReverseSameValueNodes() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
 		bmh.data[0] = 5;
 		bmh.data[1] = 5;
-		bmh.sift(1);
+		bmh.siftIn(1);
 		assertEquals(5, bmh.data[0].intValue());
 		assertEquals(5, bmh.data[1].intValue());
 	}
@@ -251,13 +251,103 @@ public class BinaryMinHeapTest {
 		
 		int count = 0;
 		for (int value = (BinaryMinHeap.NUMERO_NODI_INIZIALI+1) ; value > - (BinaryMinHeap.NUMERO_NODI_INIZIALI+1) ; value--) {
-//			System.out.println(bmh.toString());
 			bmh.add(value);
-			assertEquals(value, bmh.getMinimum().intValue());
+			assertEquals(value, bmh.getHead().intValue());
 			assertEquals(++count, bmh.getNumberOfNodes());
 		}
-//		assertEquals("6 nodes : { -2, 0, -1, 3, 1, 2, null, null}", bmh.toString());
-//		System.out.println(bmh.toString());
+	}
+
+	@Test
+	public void siftOutShouldReverseUnorderedNodes() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.data[0] = 8;
+		bmh.data[1] = 3;
+		bmh.data[2] = 6;
+		bmh.data[3] = 5;
+		bmh.data[4] = 9;
+		bmh.numberOfNodes = 5;
+		bmh.siftOut(0);
+		assertEquals(3, bmh.data[0].intValue());
+		assertEquals(5, bmh.data[1].intValue());
+		assertEquals(6, bmh.data[2].intValue());
+		assertEquals(8, bmh.data[3].intValue());
+		assertEquals(9, bmh.data[4].intValue());
+
+		assertEquals(5, bmh.getNumberOfNodes());
+	}
+	
+	@Test
+	public void getChildMinShouldReturnMinimumValueOfNodes() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.data[0] = 8;
+		bmh.data[1] = 3;
+		bmh.data[2] = 6;
+		bmh.data[3] = 5;
+		bmh.data[4] = 9;
+		bmh.numberOfNodes = 5;
+		assertEquals(1, bmh.getMinChildIndex(0));
+		assertEquals(3, bmh.getMinChildIndex(1));
+		assertEquals(2, bmh.getMinChildIndex(2));
+		assertEquals(3, bmh.getMinChildIndex(3));
+		assertEquals(4, bmh.getMinChildIndex(4));
+		assertEquals(5, bmh.getMinChildIndex(5));
+
+	}
+	@Test(expected = BinaryHeapException.class)
+	public void removeHeadOnEmptyHeapShouldThrowException() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.removeHead();
+	}
+
+	@Test
+	public void removeHeadShouldReturnHeadOfHeap() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.add(5);
+		bmh.add(2);
+		assertEquals(bmh.getHead().intValue(), bmh.removeHead().intValue());
+	}
+
+	@Test
+	public void removeHeadOnLastItemShouldLeaveAnEmptyHeap() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.add(5);
+		assertEquals(bmh.getHead().intValue(), bmh.removeHead().intValue());
+		assertTrue(bmh.isEmpty());
+	}
+	@Test
+	public void removeHeadShouldReduceSizeByOne() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.add(15);
+		bmh.add(23);
+		bmh.add(7);
+		bmh.add(99);
+		assertEquals(7, bmh.removeHead().intValue());
+		assertEquals(3, bmh.getNumberOfNodes());
+	}
+
+	@Test
+	public void removeHeadShouldLeaveHeapConsistent() {
+		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
+		bmh.add(15);
+		bmh.add(15);
+		bmh.add(14);
+		bmh.add(99);
+		
+		assertEquals(14, bmh.removeHead().intValue());
+		assertEquals(3, bmh.getNumberOfNodes());
+		assertFalse(bmh.isEmpty());
+		
+		assertEquals(15, bmh.removeHead().intValue());
+		assertEquals(2, bmh.getNumberOfNodes());
+		assertFalse(bmh.isEmpty());
+		
+		assertEquals(15, bmh.removeHead().intValue());
+		assertEquals(1, bmh.getNumberOfNodes());
+		assertFalse(bmh.isEmpty());
+		
+		assertEquals(99, bmh.removeHead().intValue());
+		assertEquals(0, bmh.getNumberOfNodes());
+		assertTrue(bmh.isEmpty());
 		
 	}
 
