@@ -50,6 +50,11 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 		this.data = (V[]) Array.newInstance(clazz, NUMERO_NODI_INIZIALI);
 	}
 
+	/**
+	 * Find the index of the left child of the node referenced by the passed index
+	 * @param currentIndex the index of the node we want the left child for;
+	 * @return the index of the left child of the referenced node. 
+	 */
 	protected int getLeftIndex(int currentIndex) {
 		if (currentIndex < 0 ) {
 			throw new BinaryHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
@@ -57,6 +62,11 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 		return (2 * currentIndex) + 1;
 	}
 
+	/**
+	 * Find the index of the right child of the node referenced by the passed index
+	 * @param currentIndex the index of the node we want the right child for;
+	 * @return the index of the right child of the referenced node. 
+	 */
 	protected int getRightIndex(int currentIndex) {
 		if (currentIndex < 0 ) {
 			throw new BinaryHeapException("The currentIndex can not be negative. Passed index was:" + currentIndex); 
@@ -64,6 +74,11 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 		return (2 * currentIndex) + 2;
 	}
 
+	/**
+	 * Finds the index of the parent of the node identified by some index
+	 * @param currentIndex the index of the node we want the parent for
+	 * @return the parent for the node with the passed index
+	 */
 	protected int getParentIndex(int currentIndex) {
 		if (currentIndex <= 0 ) {
 			throw new BinaryHeapException("The currentIndex can not be zero or negative. Passed index was:" + currentIndex); 
@@ -71,10 +86,18 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 		return (currentIndex -1) / 2;
 	}
 
+	/**
+	 * Tells if this heap is empty or contains at least one value.
+	 * @return True if this heap is empty.
+	 */
 	public boolean isEmpty() {
 		return (this.numberOfNodes == 0);
 	}
 
+	/**
+	 * Returns the head of this heap.
+	 * @return the head of this heap.
+	 */
 	public V getHead() {
 		if (isEmpty()) {
 			throw new BinaryHeapException("There is no head in an Empty Heap.");
@@ -82,6 +105,11 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 		return data[0];
 	}
 
+	/**
+	 * Adds a value to this heap.
+	 * @param value The value to add to this heap.
+	 * @throws BinaryHeapException if the passed value is null.
+	 */
 	public void add(V value) {
 		if (value == null) {
 			throw new BinaryHeapException("Can not add a null value");
@@ -104,23 +132,43 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	}
 
 
+	/**
+	 * Reorders the Heap nodes moving the referenced node towards the head of the heap, if needed.
+	 * @param index the index of the node to move towards the head of the heap 
+	 */
 	protected void siftIn(int index) {
 		if (isRootNode(index)) {
 			return;
 		}
 		int parent = getParentIndex(index);
-		if(needSwitch(this.data[index], this.data[parent])) {
-			V temp = this.data[index];
-			this.data[index] = this.data[parent];
-			this.data[parent] = temp;
-			
+		if(needSwitchIn(index, parent)) {
+			swapValues(index, parent);
 			siftIn(parent);
 		}
 	}
 
 
-	protected boolean needSwitch(V nodeValue, V parentValue) {
-		return (nodeValue.compareTo(parentValue) < 0);
+	/**
+	 * Swaps the values of the two nodes referenced by the two indexes passed
+	 * @param indexN1	index of first node
+	 * @param indexN2	index of second node
+	 */
+	protected void swapValues(int index, int indexN2) {
+		V temp = this.data[index];
+		this.data[index] = this.data[indexN2];
+		this.data[indexN2] = temp;
+	}
+
+
+	/**
+	 * Checks if the current node has to be switched with the node to compare when moving towards the head of the heap.
+	 * This is one of the methods to override to create an heap with a different ordering.
+	 * @param nodeIndex	The index of the "current" node
+	 * @param compareIdx	The index of the node to compare
+	 * @return true if the two nodes have to be switched to fulfill this heap ordering
+	 */
+	protected boolean needSwitchIn(int nodeIndex, int compareIdx) {
+		return (this.data[nodeIndex].compareTo(this.data[compareIdx]) < 0);
 	}
 
 	private boolean isRootNode(int index) {
@@ -128,7 +176,8 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	}
 
 
-	/* (non-Javadoc)
+	/**
+	 * Creates a string describing the content of this heap.
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -142,6 +191,11 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	}
 
 
+	/**
+	 * Removes the Head of the Heap and returns it
+	 * @return the Head of the Heap 
+	 * @throws BinaryHeapException if the Heap is Empty
+	 */
 	public V removeHead() {
 		if (isEmpty()) {
 			throw new BinaryHeapException("Can not remove Head from an Empty Heap");
@@ -159,20 +213,38 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 	}
 
 
+	/**
+	 * Reorders the Heap nodes moving the referenced node away from the head of the heap, if needed.
+	 * @param index the index of the node to move away from the head of the heap 
+	 */
 	protected void siftOut(int index) {
-		int minIdx = getMinChildIndex(index);
+		int candidateChildIdx = getSwapCandidateChildIndex(index);
 		
-		if (this.data[index].compareTo(this.data[minIdx]) > 0 ) {
-			V temp = this.data[index];
-			this.data[index] = this.data[minIdx];
-			this.data[minIdx] = temp;
-			siftOut(minIdx);
+		if ( needSwitchOut(index, candidateChildIdx) ) {
+			swapValues(index, candidateChildIdx);
+			siftOut(candidateChildIdx);
 		}
-		
+	}
+
+	/**
+	 * Checks if the current node has to be switched with the node to compare when moving away from the head of the heap.
+	 * This is one of the methods to override to create an heap with a different ordering.
+	 * @param nodeIndex	The index of the "current" node
+	 * @param compareIdx	The index of the node to compare
+	 * @return true if the two nodes have to be switched to fulfill this heap ordering
+	 */
+	protected boolean needSwitchOut(int nodeIndex, int compareIdx) {
+		return (this.data[nodeIndex].compareTo(this.data[compareIdx]) > 0);
 	}
 
 
-	protected int getMinChildIndex(int index) {
+	/**
+	 * Find the index of the child of the referenced node to evaluate for the switch with the parent in a siftOut operation.
+	 * This is one of the methods to override to create an heap with a different ordering.
+	 * @param index	the index of the parent node  
+	 * @return	the index of the child to evaluate for the switch with the parent
+	 */
+	protected int getSwapCandidateChildIndex(int index) {
 		int leftIdx = getLeftIndex(index);
 		if (leftIdx >= numberOfNodes) {
 			return index;
@@ -187,7 +259,5 @@ public class BinaryMinHeap<V extends Comparable<V>> {
 			return rightIdx;
 		}
 	}
-	
-	
 	
 }

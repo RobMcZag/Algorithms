@@ -202,9 +202,12 @@ public class BinaryMinHeapTest {
 	@Test
 	public void needSwitchShouldBeTrueForUnorderedAndFalseForEqualOrOrdered() {
 		BinaryMinHeap<Integer> bmh = new BinaryMinHeap<Integer>(Integer.class);
-		assertTrue(bmh.needSwitch(3,  5));
-		assertFalse(bmh.needSwitch(5,  3));
-		assertFalse(bmh.needSwitch(5,  5));
+		bmh.data[0] = 5;
+		bmh.data[1] = 3;
+		bmh.data[2] = 5;
+		assertTrue(bmh.needSwitchIn(1,  0));
+		assertFalse(bmh.needSwitchIn(0,  1));
+		assertFalse(bmh.needSwitchIn(0,  2));
 	}
 
 	
@@ -285,12 +288,12 @@ public class BinaryMinHeapTest {
 		bmh.data[3] = 5;
 		bmh.data[4] = 9;
 		bmh.numberOfNodes = 5;
-		assertEquals(1, bmh.getMinChildIndex(0));
-		assertEquals(3, bmh.getMinChildIndex(1));
-		assertEquals(2, bmh.getMinChildIndex(2));
-		assertEquals(3, bmh.getMinChildIndex(3));
-		assertEquals(4, bmh.getMinChildIndex(4));
-		assertEquals(5, bmh.getMinChildIndex(5));
+		assertEquals(1, bmh.getSwapCandidateChildIndex(0));
+		assertEquals(3, bmh.getSwapCandidateChildIndex(1));
+		assertEquals(2, bmh.getSwapCandidateChildIndex(2));
+		assertEquals(3, bmh.getSwapCandidateChildIndex(3));
+		assertEquals(4, bmh.getSwapCandidateChildIndex(4));
+		assertEquals(5, bmh.getSwapCandidateChildIndex(5));
 
 	}
 	@Test(expected = BinaryHeapException.class)
