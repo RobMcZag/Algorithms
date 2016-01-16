@@ -1,4 +1,4 @@
-package it.rz.algoritmi;
+package com.robertozagni.algoritmi;
 
 import static org.junit.Assert.*;
 
@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import com.robertozagni.algoritmi.Anagrammi;
 
 public class AnagrammiTest {
 

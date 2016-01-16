@@ -1,4 +1,4 @@
-package it.rz.algoritmi;
+package com.robertozagni.algoritmi;
 
 public class MyLinkedList {
 
@@ -161,19 +161,19 @@ public class MyLinkedList {
 	 *        venir cambiati dalle operazioni sulla lista. 
 	 * 2) Questo metodo modifica la referenza all'oggetto successivo dei nodi 
 	 *    che man mano si trovano in fondo alla lista;
-	 * 3) Se viene aggiunto un nodo che punta ad un nodo già nella lista 
+	 * 3) Se viene aggiunto un nodo che punta ad un nodo giï¿½ nella lista 
 	 *    si crea una referenza circolare.
 	 * @param start Il nodo da cui iniziare ad aggiungere una catena.
 	 * @return Il numero di nodi della catena appena aggiunta, incluso quello passato.
-	 * 		   Se il nodo passato è null viene ritornato 0. 
+	 * 		   Se il nodo passato ï¿½ null viene ritornato 0. 
 	 * @deprecated This method has Many potential side effects. Use {@link addNodesValue()} instead.
 	 */
 	@Deprecated 
 	public int addNodes(Node start) {
-		// se la lista è vuota 
+		// se la lista ï¿½ vuota 
 		if (this.last == null) {
 			this.head = start;
-			//this.last = start; //viene fatto nel loop se != null, altrimenti è già null :)
+			//this.last = start; //viene fatto nel loop se != null, altrimenti ï¿½ giï¿½ null :)
 			this.count = 0;
 		}
 		Node current = start;
@@ -197,7 +197,7 @@ public class MyLinkedList {
 	 * Ritorna il numero di elementi aggiunti.
 	 * @param start Il nodo da cui iniziare ad aggiungere una catena.
 	 * @return Il numero di nodi della catena appena aggiunta, incluso quello passato.
-	 * 		   Se il nodo passato è null viene ritornato 0. 
+	 * 		   Se il nodo passato ï¿½ null viene ritornato 0. 
 	 */
 	public int addNodesValue(Node start) {
 		Node current = start;
@@ -205,7 +205,7 @@ public class MyLinkedList {
 		while (current != null) {		
 			counter++;					// sto aggiungendo un nodo
 			Node newNode = new Node(current.getValue());
-			// se la lista è vuota 
+			// se la lista ï¿½ vuota 
 			if (this.head == null) {
 				this.head = newNode;
 				this.last = null;	// viene settata dopo e non deve essere settato il next
@@ -245,7 +245,7 @@ public class MyLinkedList {
 	public static class Node<T> {
 		
 		/**
-		 * Crea un nodo vuoto, cioè senza valore e senza nodo successivo
+		 * Crea un nodo vuoto, cioï¿½ senza valore e senza nodo successivo
 		 */
 		public Node() {
 			this(null);
@@ -263,7 +263,7 @@ public class MyLinkedList {
 		 * Crea un nodo completo con valore e nodo successivo
 		 * @param value Il valore contenuto nel nodo
 		 * @param next Il nodo seguente. 
-		 *        Può essere null se non si vuole collegare un nodo seguente.
+		 *        Puï¿½ essere null se non si vuole collegare un nodo seguente.
 		 */
 		public Node(T value, Node next) {
 			super();
@@ -278,12 +278,12 @@ public class MyLinkedList {
 		
 		/**
 		 * Il prossimo nodo della lista.
-		 * Vale null se non ci sono altri nodi, quindi quello corrente è l'ultimo nodo.
+		 * Vale null se non ci sono altri nodi, quindi quello corrente ï¿½ l'ultimo nodo.
 		 */
 		private Node next = null;
 		
 		/**
-		 * Ritorna il nodo collegato al nodo attuale, cioè il prossimo nodo della lista.
+		 * Ritorna il nodo collegato al nodo attuale, cioï¿½ il prossimo nodo della lista.
 		 * Non ci sono garanzie sul tipo di valore collegato al nodo ritornato,
 		 * ovvero il nodo successivo potrebbe avere un valore di tipo diverso dal nodo corrente.
 		 * @return Il prossimo nodo della lista

@@ -1,10 +1,13 @@
-package it.rz.algoritmi.binaryHeap;
+package com.robertozagni.algoritmi.binaryHeap;
 
 import static org.junit.Assert.*;
-import it.rz.algoritmi.binaryHeap.BinaryHeapException;
 
 import org.junit.Ignore;
 import org.junit.Test;
+
+import com.robertozagni.algoritmi.binaryHeap.BinaryHeapException;
+import com.robertozagni.algoritmi.binaryHeap.BinaryHeapOutOfBoundsException;
+import com.robertozagni.algoritmi.binaryHeap.BinaryMinHeap;
 
 public class BinaryMinHeapTest {
 

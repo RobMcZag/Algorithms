@@ -1,4 +1,4 @@
-package it.rz.algoritmi;
+package com.robertozagni.algoritmi;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +20,7 @@ public class Anagrammi {
 	
 	/**
 	 * Costruisce gli anagrammi delle parole di un dizionario in formato testo.
-	 * @param args Il primo parametro è il nome del file con le parole.
+	 * @param args Il primo parametro ï¿½ il nome del file con le parole.
 	 */
 	public static void main(String[] args) {
 

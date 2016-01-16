@@ -1,4 +1,4 @@
-package it.rz.algoritmi;
+package com.robertozagni.algoritmi;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import com.robertozagni.algoritmi.MyLinkedList;
 
 public class MyLinkedListTest {
 
@@ -160,7 +162,7 @@ public class MyLinkedListTest {
 		assertEquals("Lista con n1 => Head vale 1", 1, ((Integer)lista.getHead().getValue()).intValue());
 		assertNotSame(n1, lista.getLast());	// Stesso valore, oggetto diverso da quello passato
 		assertEquals("Lista con n1 => Last vale 1", 1, ((Integer)lista.getLast().getValue()).intValue());		
-		assertNull(n1.getNext());	// Next di n1 è vuoto
+		assertNull(n1.getNext());	// Next di n1 ï¿½ vuoto
 	}
 		
 	@Test
@@ -178,7 +180,7 @@ public class MyLinkedListTest {
 		assertEquals("Lista con n1+n5=>n7 => Last vale 7", 7, ((Integer)lista.getLast().getValue()).intValue());
 
 		// NO Side effect => NESSUNA modifica ad n1 ed n5
-		assertNull(n1.getNext());	// Next di n1 è ANCORA vuoto
+		assertNull(n1.getNext());	// Next di n1 ï¿½ ANCORA vuoto
 		assertNotSame(n5, n1.getNext()); // n1 NON punta all'oggetto che viene dopo di lui
 	}
 
@@ -195,7 +197,7 @@ public class MyLinkedListTest {
 		assertEquals(1, lista.getCount());	// 1 elemento
 		assertEquals(n1, lista.getHead());	// punta all'oggetto passato
 		assertEquals(n1, lista.getLast());	// punta all'oggetto passato
-		assertNull(n1.getNext());	// Next di n1 è vuoto
+		assertNull(n1.getNext());	// Next di n1 ï¿½ vuoto
 	}
 		
 	@SuppressWarnings("deprecation")
@@ -211,7 +213,7 @@ public class MyLinkedListTest {
 		assertEquals(n7, lista.getLast());	// punta all'oggetto n7 in fondo alla catena passata
 
 		// Side effect => modifica di n1
-		assertNotNull(n1.getNext());	// Next di n1 NON è PIU' vuoto
+		assertNotNull(n1.getNext());	// Next di n1 NON ï¿½ PIU' vuoto
 		assertEquals(n5, n1.getNext()); // n1 punta all'oggetto che viene dopo di lui
 	}
 		
@@ -225,7 +227,7 @@ public class MyLinkedListTest {
 		lista.addNodes(n5);	// Creo referenza circolare
 		
 		assertEquals(n7, lista.getLast());	// punta all'oggetto n7 in fondo alla catena passata
-		assertEquals(n5, n7.getNext());	// punta all'oggetto n5 che gli è stato aggiunto dopo!
+		assertEquals(n5, n7.getNext());	// punta all'oggetto n5 che gli ï¿½ stato aggiunto dopo!
 		assertEquals(n6, n5.getNext());	// n5 => n6
 		assertEquals(n7, n6.getNext());	// n6 => n7 che poi punta ad n5 >>> LOOP
 		

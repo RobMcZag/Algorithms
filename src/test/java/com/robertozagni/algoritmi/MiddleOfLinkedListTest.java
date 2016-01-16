@@ -1,10 +1,12 @@
-package it.rz.algoritmi;
+package com.robertozagni.algoritmi;
 
 import static org.junit.Assert.*;
 
 import java.util.LinkedList;
 
 import org.junit.Test;
+
+import com.robertozagni.algoritmi.MiddleOfLinkedList;
 
 public class MiddleOfLinkedListTest {
 

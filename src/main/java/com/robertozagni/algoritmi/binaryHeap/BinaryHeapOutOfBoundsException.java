@@ -1,4 +1,4 @@
-package it.rz.algoritmi.binaryHeap;
+package com.robertozagni.algoritmi.binaryHeap;
 
 public class BinaryHeapOutOfBoundsException extends BinaryHeapException {
 	

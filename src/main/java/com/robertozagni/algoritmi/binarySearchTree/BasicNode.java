@@ -1,4 +1,4 @@
-package it.rz.algoritmi.binarySearchTree;
+package com.robertozagni.algoritmi.binarySearchTree;
 
 import java.util.ArrayList;
 import java.util.List;

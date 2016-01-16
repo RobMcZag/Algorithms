@@ -1,11 +1,12 @@
 /**
  * 
  */
-package it.rz.algoritmi;
+package com.robertozagni.algoritmi;
 
 import java.util.Arrays;
 
-import it.rz.algoritmi.ArrayOperations;
+import com.robertozagni.algoritmi.ArrayOperations;
+
 import junit.framework.TestCase;
 
 /**
@@ -58,7 +59,7 @@ public class ArrayOperationsTest extends TestCase {
 		// Rilevazione duplicati esisitenti
 		assertTrue(ArrayOperations.hasDuplicatesSet(mesi));
 		assertTrue(ArrayOperations.hasDuplicatesSet(giorniInteri));
-		// l' int[] è un solo oggetto, non un array di oggetti
+		// l' int[] ï¿½ un solo oggetto, non un array di oggetti
 		assertFalse(ArrayOperations.hasDuplicatesSet(giorni));
 	}
 
@@ -78,7 +79,7 @@ public class ArrayOperationsTest extends TestCase {
 		// Rilevazione duplicati esisitenti
 		assertTrue(ArrayOperations.hasDuplicatesHashSet(mesi));
 		assertTrue(ArrayOperations.hasDuplicatesHashSet(giorniInteri));
-		// l' int[] è un solo oggetto, non un array di oggetti
+		// l' int[] ï¿½ un solo oggetto, non un array di oggetti
 		assertFalse(ArrayOperations.hasDuplicatesHashSet(giorni));
 	}
 

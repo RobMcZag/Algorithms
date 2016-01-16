@@ -1,4 +1,4 @@
-package it.rz.algoritmi.binaryHeap;
+package com.robertozagni.algoritmi.binaryHeap;
 
 import java.lang.reflect.Array;
 

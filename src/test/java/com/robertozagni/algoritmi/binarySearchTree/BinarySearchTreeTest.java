@@ -1,4 +1,4 @@
-package it.rz.algoritmi.binarySearchTree;
+package com.robertozagni.algoritmi.binarySearchTree;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
+
+import com.robertozagni.algoritmi.binarySearchTree.BinarySearchTree;
 
 public class BinarySearchTreeTest {
 

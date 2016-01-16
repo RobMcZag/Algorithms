@@ -1,4 +1,4 @@
-package it.rz.algoritmi;
+package com.robertozagni.algoritmi;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package it.rz.algoritmi;
+package com.robertozagni.algoritmi;
 
 import java.util.Iterator;
 import java.util.LinkedList;
