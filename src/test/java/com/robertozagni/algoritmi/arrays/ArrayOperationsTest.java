@@ -1,11 +1,9 @@
 /**
  * 
  */
-package com.robertozagni.algoritmi;
+package com.robertozagni.algoritmi.arrays;
 
 import java.util.Arrays;
-
-import com.robertozagni.algoritmi.ArrayOperations;
 
 import junit.framework.TestCase;
 

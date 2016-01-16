@@ -1,4 +1,4 @@
-package com.robertozagni.algoritmi;
+package com.robertozagni.algoritmi.arrays;
 
 import java.util.Arrays;
 import java.util.HashSet;
