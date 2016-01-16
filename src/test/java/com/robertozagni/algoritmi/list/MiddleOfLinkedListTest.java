@@ -1,4 +1,4 @@
-package com.robertozagni.algoritmi;
+package com.robertozagni.algoritmi.list;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import org.junit.Test;
 
-import com.robertozagni.algoritmi.MiddleOfLinkedList;
+import com.robertozagni.algoritmi.list.MiddleOfLinkedList;
 
 public class MiddleOfLinkedListTest {
 

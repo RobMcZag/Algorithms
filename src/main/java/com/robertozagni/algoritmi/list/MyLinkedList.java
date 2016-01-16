@@ -1,4 +1,4 @@
-package com.robertozagni.algoritmi;
+package com.robertozagni.algoritmi.list;
 
 public class MyLinkedList {
 

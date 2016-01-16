@@ -1,4 +1,4 @@
-package com.robertozagni.algoritmi;
+package com.robertozagni.algoritmi.list;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.robertozagni.algoritmi.MyLinkedList;
+import com.robertozagni.algoritmi.list.MyLinkedList;
 
 public class MyLinkedListTest {
 
