@@ -1,4 +1,4 @@
-package com.robertozagni.algoritmi;
+package com.robertozagni.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DatabaseAccess {
+public class ReadFromExcel {
 
 	/**
 	 * @param args
