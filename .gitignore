@@ -5,6 +5,12 @@
 build/**
 .gradle/**
 
+# Package Files #
+*.jar
+*.war
+*.ear
+!gradle-wrapper.jar
+
 # Eclipse
 .classpath
 .project
@@ -17,3 +23,14 @@ local.properties
 *.local.txt
 /build/
 /bin/
+
+# Mac OS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IntelliJ Idea IDE excludes
+.idea
+
+# Dependency list from "gradle dependencies" command
+dependencies.txt
