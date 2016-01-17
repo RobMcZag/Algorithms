@@ -9,6 +9,13 @@ package com.robertozagni.algoritmi.binarySearchTree;
 
 import java.util.List;
 
+/**
+ * A binary tree where nodes are kept ordered on the values stored in the nodes.
+ * 
+ * @author roberto.zagni
+ *
+ * @param <V> a type that implements the comparable interface to be sorted.
+ */
 public class BinarySearchTree<V extends Comparable<V>> {
 
     private Node<V> root = null;
@@ -18,8 +25,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
     }
 
     /**
-     * boolean contains(Object o) method says:
-     * "returns true if and only if this collection contains at least one element e such that (o==null ? e==null : o.equals(e))."
+     * Returns true if and only if this tree contains at least one element e such that (o==null ? e==null :o.equals(e)).
      */
     public boolean contains(V value) {
         if (root == null) {
@@ -30,7 +36,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
     }
 
     /**
-     * int size() Returns the number of elements in this collection.
+     * Returns the number of elements in this collection.
      */
     public int size() {
         return (root == null) ? 0 : root.size();
@@ -44,14 +50,14 @@ public class BinarySearchTree<V extends Comparable<V>> {
     }
 
     /**
-     * void clear() Removes all of the elements from this collection (optional operation).
+     * Removes all of the elements from this collection.
      */
     public void clear() {
         this.root = null;
     }
 
     /**
-     * boolean add(E e) Ensures that this collection contains the specified element (optional operation).
+     * Ensures that this tree contains the specified element.
      */
     public boolean add(V value) {
         if (root == null) {
@@ -63,7 +69,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
     }
 
     /**
-     * boolean remove(E e) Ensures that this collection contains the specified element (optional operation).
+     * Ensures that this tree deos not contains the specified element.
      */
     public boolean remove(V value) {
         if (root == null) {
@@ -75,7 +81,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
     }
 
     /**
-     * List the values contained in this tree in the order set by the cmpareTo() method on the Values V
+     * List the values contained in this tree in the order set by the compareTo() method on the Values V
      * 
      * @return an ordered List of values
      */
@@ -84,7 +90,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
     }
 
     /**
-     * boolean equals(Object o) Compares the specified object with this collection for equality.
+     * Compares the specified object with this tree for equality.
      */
     public boolean equals(BinarySearchTree<V> tree) {
         return listValues().equals(tree.listValues());

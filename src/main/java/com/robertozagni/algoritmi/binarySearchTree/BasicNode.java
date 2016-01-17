@@ -14,7 +14,7 @@ import java.util.List;
  * A simple node of a BinarySearchTree holding a value of type V and being able to connect to other nodes. Nodes are
  * stored "left" if their value is lass than this node's value or right if it's higher.
  * 
- * @author Roberto
+ * @author Roberto Zagni
  *
  * @param <V> The value type contained in a node.
  */
