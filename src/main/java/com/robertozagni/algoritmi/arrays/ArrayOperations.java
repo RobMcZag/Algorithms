@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2014, 2016 Roberto Zagni, www.robertozagni.com
+ * The contents of this repository  are released under Apache 2.0 License unless stated differently; 
+ * see LICENSE file for complete text. 
+ * 
+ * @author roberto.zagni
+ */
 package com.robertozagni.algoritmi.arrays;
 
 import java.util.Arrays;
@@ -34,28 +41,9 @@ public class ArrayOperations<T> {
     public static <T> boolean hasDuplicatesHashSet(T... objs) {
         HashSet<T> s = new HashSet<T>();
         for (T object : objs) {
-            if (!s.add(object)) // Se non � possibile aggiungere...
-                return true; // Vuol dire che � duplicato
+            if (!s.add(object))
+                return true;
         }
         return false;
     }
-
-    /*
-     * public static <T> boolean hasDuplicateRecursive(T... objs) { if (objs == null) return false; if (objs.length <=
-     * 1) return false; Arrays. return false; }
-     */
-
-    public static String reverse(String str) {
-        StringBuffer sb = new StringBuffer(str);
-        return sb.reverse().toString();
-    }
-
-    public static String reverseRecursive(String str) {
-        if (str == null)
-            return null;
-        if (str.length() == 1)
-            return str;
-        return reverseRecursive(str.substring(1)) + str.charAt(0);
-    }
-
 }
