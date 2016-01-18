@@ -52,7 +52,7 @@ public class BinarySearchTreeTest {
         BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
 
         assertNotNull(tree);
-        boolean result = tree.add(null);
+        tree.add(null);
     }
 
     @Test
