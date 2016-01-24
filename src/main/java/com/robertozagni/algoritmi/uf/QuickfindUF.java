@@ -87,4 +87,9 @@ public class QuickfindUF implements UnionFind {
         }
     }
 
+    @Override
+    public String toString() {
+        return Arrays.toString(id);
+    }
+
 }
