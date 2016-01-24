@@ -15,6 +15,7 @@ public interface UnionFind {
      * 
      * @param p The id of object p, must be between 0 an N-1;
      * @param q The id of object q, must be between 0 an N-1;
+     * @throws IndexOutOfBoundsException if the provided ids are out of the 0 - N-1 interval.
      */
     void union(int p, int q);
 
@@ -23,6 +24,7 @@ public interface UnionFind {
      * 
      * @param p The id of object p, must be between 0 an N-1;
      * @return the id of the connected component the object is in.
+     * @throws IndexOutOfBoundsException if the provided id is out of the 0 - N-1 interval.
      */
     int find(int p);
 
@@ -32,6 +34,7 @@ public interface UnionFind {
      * @param p The id of object p, must be between 0 an N-1;
      * @param q The id of object q, must be between 0 an N-1;
      * @return <code>true</code> if the give objects are connected, <code>false</code> otherwise.
+     * @throws IndexOutOfBoundsException if the provided ids are out of the 0 - N-1 interval.
      */
     boolean connected(int p, int q);
 
