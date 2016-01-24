@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class QuickfindUF implements UnionFind {
 
-    private static final Logger LOG = LoggerFactory.getLogger(QuickfindUF.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(QuickfindUF.class);
 
     private final int[] id;
     private int count;

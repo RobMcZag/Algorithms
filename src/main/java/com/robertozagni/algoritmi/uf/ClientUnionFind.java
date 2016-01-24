@@ -18,7 +18,9 @@ public class ClientUnionFind {
 
     public static void main(String[] args) {
         int N = parseArgsForNumObjects(args, 10);
-        UnionFind uf = new QuickfindUF(N);
+
+        // UnionFind uf = new QuickfindUF(N);
+        UnionFind uf = new QuickUnionUF(N);
 
         InputStream in = System.in;
         try {
