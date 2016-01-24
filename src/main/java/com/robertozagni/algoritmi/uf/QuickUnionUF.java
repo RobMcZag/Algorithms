@@ -2,15 +2,12 @@ package com.robertozagni.algoritmi.uf;
 
 import java.util.Arrays;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class QuickUnionUF implements UnionFind {
 
-    private static final Logger LOG = LoggerFactory.getLogger(QuickUnionUF.class);
+    // private static final Logger LOG = LoggerFactory.getLogger(QuickUnionUF.class);
 
-    private final int[] parent;
-    private int count;
+    protected final int[] parent;
+    protected int count;
 
     public QuickUnionUF(int N) {
 
@@ -19,11 +16,6 @@ public class QuickUnionUF implements UnionFind {
 
         for (int i = 0; i < parent.length; i++) {
             parent[i] = i;
-        }
-
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("Initialisation done for {} objects.", N);
-            LOG.trace(Arrays.toString(parent));
         }
     }
 
