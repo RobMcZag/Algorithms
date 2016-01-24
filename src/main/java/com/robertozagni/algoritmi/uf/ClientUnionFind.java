@@ -20,11 +20,14 @@ public class ClientUnionFind {
         int N = parseArgsForNumObjects(args, 10);
 
         // UnionFind uf = new QuickfindUF(N);
-        UnionFind uf = new QuickUnionUF(N);
+        // UnionFind uf = new QuickUnionUF(N);
+        UnionFind uf = new WeightedQuickUnionUF(N);
 
         InputStream in = System.in;
         try {
-            in = ClientUnionFind.class.getClassLoader().getResource("ufcommands.txt").openStream();
+            in = ClientUnionFind.class.getClassLoader().getResource("uf/commands.txt").openStream();
+        } catch (NullPointerException e) {
+            LOG.error("We could not find your file.");
         } catch (IOException e) {
             LOG.error("We could not open your file.");
             e.printStackTrace();
@@ -51,8 +54,8 @@ public class ClientUnionFind {
             }
             int q = input.nextInt();
             if ("union".equalsIgnoreCase(command)) {
-                System.out.format("Joining %d and %d. %s%n", p, q, uf.toString());
                 uf.union(p, q);
+                System.out.format("Joined %d and %d. %s%n", p, q, uf.toString());
                 continue;
             }
             if ("connected".equalsIgnoreCase(command)) {

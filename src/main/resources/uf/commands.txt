@@ -1,0 +1,18 @@
+# lines starting with # are comments and are not processed.
+#
+# Format for line is the one below. Commands are 'union', 'connected', 'find', 'count', 'quit'.
+# <command> <p> <q> 
+
+## Quiz 1 on Quickfind
+union 9 1 
+union 6 1 
+union 8 2 
+connected 8 1
+connected 8 9
+connected 8 0
+union 1 8 
+union 4 5 
+union 0 6
+connected 8 0
+
+quit
