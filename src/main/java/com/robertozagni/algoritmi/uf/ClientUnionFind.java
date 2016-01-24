@@ -34,6 +34,10 @@ public class ClientUnionFind {
             if ("quit".equalsIgnoreCase(command)) {
                 break;
             }
+            if (command.startsWith("#")) {
+                input.nextLine();
+                continue;
+            }
             if ("count".equalsIgnoreCase(command)) {
                 System.out.format("There are %d connected components. %s%n", uf.count(), uf.toString());
                 continue;

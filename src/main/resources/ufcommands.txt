@@ -1,3 +1,5 @@
+# lines starting with # are comments and are not processed.
+# 10 objects
 union 4 3
 union 3 8
 union 6 5
