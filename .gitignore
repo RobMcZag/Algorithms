@@ -34,3 +34,6 @@ local.properties
 
 # Dependency list from "gradle dependencies" command
 dependencies.txt
+
+# Quiz input files
+quiz*.txt
