@@ -2,30 +2,51 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 sourceCompatibility = 1.6
-group = 'it.rz'
+group = 'com.robertozagni'
 version = '0.1'
 
-jar { 
-    manifest { 
-        def manifestClasspath = configurations.runtime.collect { it.getName() }.join(',') 
-        attributes 'Class-Path': manifestClasspath 
-    } 
-} 
-
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Algoritmi', 'Implementation-Version': '0.1', 'Main-Class': 'it.rz.algoritmi.MyLinkedList'
-    }
-}
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    // jcenter()
+    // maven { url "https://jitpack.io" } // for influxdb-java
 }
 
 dependencies {
+
+    // Logging modules - Using the slf4j API to bind to Log4J
+    compile group: 'org.slf4j', name:'slf4j-api', version:'1.7.13'  // API
+    compile group: 'org.slf4j', name:'slf4j-log4j12', version:'1.7.13'  // Binding to Log4J
+
+    // Testing
     testCompile 'junit:junit:4.11'
+    // testCompile "org.mockito:mockito-core:1.+"
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.10'
 }
+
+jar {
+    baseName = 'algoritmi'
+    manifest {
+        def manifestClasspath = configurations.runtime.collect { it.getName() }.join(',') 
+        attributes  'Implementation-Title': 'Algoritmi', 
+                    'Implementation-Version': version,  
+                    //, 'Main-Class': 'it.rz.algoritmi.MyLinkedList'
+                    'Class-Path': manifestClasspath
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenLocal()
+/*
+       flatDir {
+           dirs 'repos'
+       }
+*/
+    }
+}
+
