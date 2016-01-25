@@ -10,6 +10,7 @@ build/**
 *.war
 *.ear
 !gradle-wrapper.jar
+!libs/*.jar
 
 # Eclipse
 .classpath
