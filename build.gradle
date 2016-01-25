@@ -1,5 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+apply plugin: 'cobertura'
 
 sourceCompatibility = 1.6
 group = 'com.robertozagni'
@@ -11,10 +15,17 @@ repositories {
     mavenCentral()
     // jcenter()
     // maven { url "https://jitpack.io" } // for influxdb-java
+    flatDir {
+        dirs "$rootProject.projectDir/libs"
+    }
 }
 
 dependencies {
 
+    // Algorithms from Princeton
+    compile files('libs/algs4.jar')
+    //compile fileTree(dir: 'libs', include: ['*.jar'])
+    
     // Logging modules - Using the slf4j API to bind to Log4J
     compile group: 'org.slf4j', name:'slf4j-api', version:'1.7.13'  // API
     compile group: 'org.slf4j', name:'slf4j-log4j12', version:'1.7.13'  // Binding to Log4J
@@ -22,10 +33,22 @@ dependencies {
     // Testing
     testCompile 'junit:junit:4.11'
     // testCompile "org.mockito:mockito-core:1.+"
+    
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.10'
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        
+    }
+    dependencies {
+        classpath 'net.saliman:gradle-cobertura-plugin:2.3.0'
+    }
 }
 
 jar {
@@ -42,11 +65,36 @@ jar {
 uploadArchives {
     repositories {
         mavenLocal()
-/*
-       flatDir {
-           dirs 'repos'
-       }
-*/
     }
 }
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
+checkstyle {
+    ignoreFailures = true
+    toolVersion = '6.9'     // default is 5.9
+    configFile = rootProject.file('codequality/checkstyle.xml')
+}
+findbugs {
+    ignoreFailures = true
+    excludeFilter = rootProject.file("codequality/findbugsExcludeFilter.xml")
+    
+}
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+pmd {
+    ignoreFailures = true 
+}
+cobertura {
+    coverageFormats = ['html', 'xml']
+    coverageIgnoreTrivial = true
+    coverageIgnores = ['org.slf4j.Logger.*']
+    coverageReportDir = new File("$buildDir/reports/cobertura")
+}
