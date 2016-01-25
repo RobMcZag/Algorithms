@@ -5,17 +5,9 @@
  * 
  * @author roberto.zagni
  */
+
 package com.robertozagni.algoritmi.math;
 
-import static org.junit.Assert.fail;
-
-import org.junit.Test;
-
 public class MultiplicationTest {
-
-    @Test
-    public void test() {
-        fail("Not yet implemented");
-    }
 
 }
