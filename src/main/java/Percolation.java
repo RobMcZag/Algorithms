@@ -5,6 +5,8 @@
  * @author roberto.zagni - Copyright (c) 2016
  */
 
+import static org.junit.Assert.assertEquals;
+
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 /**
@@ -59,8 +61,8 @@ public class Percolation {
    * @param col the 1 based dimension for columns;
    * @return the 0-based 1D index corresponding to the given 2D position
    */
-  int index(int row, int col) {
-    return (row - 1) * N + (col - 1);
+  private int index(int row, int col) {
+    return (row - 1) * N + (col - 1) * 1;
   }
 
   /**
@@ -79,7 +81,7 @@ public class Percolation {
   public void open(int row, int col) {
     validate(row);
     validate(col);
-    if (!isOpenSafe(row, col)) {
+    if (!isOpenV(row, col)) {
 
       // open it
       int idx = index(row, col);
@@ -88,24 +90,22 @@ public class Percolation {
       // connect UP
       if (row == 1) { // if row = 1 connect to TOP
         uf.union(idx, theTOP);
-      } else if (isOpenSafe(row - 1, col)) { // if UP isOpen connect to it
+      } else if (isOpenV(row - 1, col)) { // if UP isOpen connect to it
         uf.union(idx, index(row - 1, col));
       }
 
       // connect LEFT
-      if (col > 1 && isOpenSafe(row, col - 1)) {
+      if (col > 1 && isOpenV(row, col - 1)) {
         uf.union(idx, index(row, col - 1));
       }
 
       // connect RIGHT
-      if (col < N && isOpenSafe(row, col + 1)) {
+      if (col < N && isOpenV(row, col + 1)) {
         uf.union(idx, index(row, col + 1));
       }
 
       // connect DOWN
-      if (row == N) { // if row = N connect to BOTTOM
-        // uf.union(idx, theBOTTOM);
-      } else if (isOpenSafe(row + 1, col)) { // if UP isOpen connect to it
+      if (row != N && isOpenV(row + 1, col)) { // if UP isOpen connect to it
         uf.union(idx, index(row + 1, col));
       }
     }
@@ -120,10 +120,10 @@ public class Percolation {
   public boolean isOpen(int row, int col) {
     validate(row);
     validate(col);
-    return isOpenSafe(row, col);
+    return isOpenV(row, col);
   }
 
-  boolean isOpenSafe(int row, int col) {
+  private boolean isOpenV(int row, int col) {
     return open[index(row, col)];
   }
 
@@ -136,11 +136,11 @@ public class Percolation {
   public boolean isFull(int row, int col) {
     validate(row);
     validate(col);
-    return isFullSafe(row, col);
+    return isFullV(row, col);
   }
 
-  boolean isFullSafe(int row, int col) {
-    return isOpenSafe(row, col) && uf.connected(index(row, col), theTOP);
+  private boolean isFullV(int row, int col) {
+    return isOpenV(row, col) && uf.connected(index(row, col), theTOP);
   }
 
   /**
@@ -160,8 +160,63 @@ public class Percolation {
 
   // test client (optional)
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
+    System.out.println("Running tests...");
+    testIndexing();
+    PercolationTest test = new PercolationTest();
+    test.atStrtupAllClosed();
+    test.canAvoidBackFillOnPercolation();
+    test.canCreateObjects();
+    try {
+      test.canNotCreateNis0();
+    } catch (IllegalArgumentException e) {
+      /* EXPECTED */ }
+    try {
+      test.canNotCreateNisNegative();
+    } catch (IllegalArgumentException e) {
+      /* EXPECTED */ }
+    try {
+      test.canNotCreateNisTooBig();
+    } catch (IllegalArgumentException e) {
+      /* EXPECTED */ }
+    try {
+      test.canNotCreateNisTooBig2();
+    } catch (IllegalArgumentException e) {
+      /* EXPECTED */ }
+    test.percolateWhenJoinInMiddle();
+    test.testIsFullInRange();
+    test.testIsFullOutOfRange();
+    test.testIsOpenOutOfRange();
+    test.testOpenInRange();
+    try {
+      test.testOpenOutOfRangeLowCol();
+    } catch (IndexOutOfBoundsException e) {
+      /* EXPECTED */ }
+    try {
+      test.testOpenOutOfRangeLowRow();
+    } catch (IndexOutOfBoundsException e) {
+      /* EXPECTED */ }
+    try {
+      test.testOpenOutOfRangeUpCol();
+    } catch (IndexOutOfBoundsException e) {
+      /* EXPECTED */ }
+    try {
+      test.testOpenOutOfRangeUpRow();
+    } catch (IndexOutOfBoundsException e) {
+      /* EXPECTED */ }
 
+    System.out.println("... done!");
+
+  }
+
+  private static void testIndexing() {
+    Percolation p = new Percolation(10);
+    assertEquals(0, p.index(1, 1));
+    assertEquals(9, p.index(1, 10));
+    assertEquals(19, p.index(2, 10));
+    assertEquals(40, p.index(5, 1));
+    assertEquals(49, p.index(5, 10));
+    assertEquals(90, p.index(10, 1));
+    assertEquals(99, p.index(10, 10));
   }
 
 }
