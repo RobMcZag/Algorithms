@@ -157,14 +157,15 @@ public class PercolationStats {
       System.out.println("Could not convert to int one of the arguments: " + args[0] + ", " + args[0] + ".");
       e.printStackTrace();
     }
+
     // Stopwatch watch = new Stopwatch();
     PercolationStats stats = new PercolationStats(n, t);
     // double elapsed = watch.elapsedTime();
+
     System.out.println("mean                    = " + stats.mean()); // 0.5929934999999997
     System.out.println("stddev                  = " + stats.stddev()); // 0.00876990421552567
-
-    // 0.5912745987737567, 0.5947124012262428
     System.out.println("95% confidence interval = " + stats.confidenceLo() + ", " + stats.confidenceHi());
+
     // System.out.println("elapsed = " + elapsed);
 
   }

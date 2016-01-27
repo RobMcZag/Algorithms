@@ -5,8 +5,6 @@
  * @author roberto.zagni - Copyright (c) 2016
  */
 
-import static org.junit.Assert.assertEquals;
-
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 /**
@@ -105,7 +103,9 @@ public class Percolation {
       }
 
       // connect DOWN
-      if (row != N && isOpenV(row + 1, col)) { // if UP isOpen connect to it
+      if (row == N) {
+        uf.union(idx, theBOTTOM);
+      } else if (isOpenV(row + 1, col)) { // if UP isOpen connect to it
         uf.union(idx, index(row + 1, col));
       }
     }
@@ -150,73 +150,23 @@ public class Percolation {
    * @param col the column in the grid (1 based).
    */
   public boolean percolates() {
-    for (int i = index(N, 1); i <= index(N, N); i++) {
-      if (open[i] && uf.connected(i, theTOP)) {
-        return true;
-      }
-    }
-    return false;
+    return uf.connected(theBOTTOM, theTOP);
   }
 
   // test client (optional)
   public static void main(String[] args) {
-    System.out.println("Running tests...");
-    testIndexing();
-    PercolationTest test = new PercolationTest();
-    test.atStrtupAllClosed();
-    test.canAvoidBackFillOnPercolation();
-    test.canCreateObjects();
-    try {
-      test.canNotCreateNis0();
-    } catch (IllegalArgumentException e) {
-      /* EXPECTED */ }
-    try {
-      test.canNotCreateNisNegative();
-    } catch (IllegalArgumentException e) {
-      /* EXPECTED */ }
-    try {
-      test.canNotCreateNisTooBig();
-    } catch (IllegalArgumentException e) {
-      /* EXPECTED */ }
-    try {
-      test.canNotCreateNisTooBig2();
-    } catch (IllegalArgumentException e) {
-      /* EXPECTED */ }
-    test.percolateWhenJoinInMiddle();
-    test.testIsFullInRange();
-    test.testIsFullOutOfRange();
-    test.testIsOpenOutOfRange();
-    test.testOpenInRange();
-    try {
-      test.testOpenOutOfRangeLowCol();
-    } catch (IndexOutOfBoundsException e) {
-      /* EXPECTED */ }
-    try {
-      test.testOpenOutOfRangeLowRow();
-    } catch (IndexOutOfBoundsException e) {
-      /* EXPECTED */ }
-    try {
-      test.testOpenOutOfRangeUpCol();
-    } catch (IndexOutOfBoundsException e) {
-      /* EXPECTED */ }
-    try {
-      test.testOpenOutOfRangeUpRow();
-    } catch (IndexOutOfBoundsException e) {
-      /* EXPECTED */ }
-
-    System.out.println("... done!");
 
   }
 
-  private static void testIndexing() {
-    Percolation p = new Percolation(10);
-    assertEquals(0, p.index(1, 1));
-    assertEquals(9, p.index(1, 10));
-    assertEquals(19, p.index(2, 10));
-    assertEquals(40, p.index(5, 1));
-    assertEquals(49, p.index(5, 10));
-    assertEquals(90, p.index(10, 1));
-    assertEquals(99, p.index(10, 10));
-  }
+  // private static void testIndexing() {
+  // Percolation p = new Percolation(10);
+  // assertEquals(0, p.index(1, 1));
+  // assertEquals(9, p.index(1, 10));
+  // assertEquals(19, p.index(2, 10));
+  // assertEquals(40, p.index(5, 1));
+  // assertEquals(49, p.index(5, 10));
+  // assertEquals(90, p.index(10, 1));
+  // assertEquals(99, p.index(10, 10));
+  // }
 
 }
