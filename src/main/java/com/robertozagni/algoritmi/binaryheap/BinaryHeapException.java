@@ -5,14 +5,18 @@
  * 
  * @author roberto.zagni
  */
-package com.robertozagni.algoritmi.binaryHeap;
+package com.robertozagni.algoritmi.binaryheap;
 
-public class BinaryHeapOutOfBoundsException extends BinaryHeapException {
+public class BinaryHeapException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public BinaryHeapOutOfBoundsException(String message) {
+    public BinaryHeapException(String message) {
         super(message);
+    }
+
+    public BinaryHeapException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

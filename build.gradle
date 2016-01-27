@@ -81,7 +81,7 @@ checkstyle {
 findbugs {
     ignoreFailures = true
     includeFilter = rootProject.file("codequality/findbugs.xml")
-    excludeFilter = rootProject.file("codequality/findbugsExcludeFilter.xml")
+    //excludeFilter = rootProject.file("codequality/findbugsExcludeFilter.xml")
     // reportsDir = file("$project.buildDir/findbugsReports")
     
 }

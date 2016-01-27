@@ -11,7 +11,7 @@ import java.math.BigInteger;
 
 public class StringGeneration {
 
-    private static final java.util.Random rnd = new java.util.Random();
+    private static final java.util.Random RND = new java.util.Random();
 
     /**
      * Generate a random alphanumeric string of desired length.<br>
@@ -23,11 +23,11 @@ public class StringGeneration {
     public static String randomString(int len) {
         int bitsPerChar = 5; // With 32 = 2^5 chars every char represents 5 bits.
 
-        String string = new BigInteger(len * bitsPerChar, rnd).toString(32);
+        String string = new BigInteger(len * bitsPerChar, RND).toString(32);
         int slen = string.length();
 
         while (slen < len) {
-            string += new BigInteger((len - slen) * bitsPerChar, rnd).toString(32);
+            string += new BigInteger((len - slen) * bitsPerChar, RND).toString(32);
             slen = string.length();
         }
 

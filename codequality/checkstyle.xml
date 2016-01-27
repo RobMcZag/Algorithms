@@ -64,6 +64,8 @@
         <!-- SPECIAL HACK FOR NON-STATIC PUBIC FINAL VARIABLE -->
         <module name="VisibilityModifier">
             <property name="publicMemberPattern" value="^SLOPE_ORDER$"/>
+            <property name="packageAllowed" value="true"/>
+            <property name="protectedAllowed" value="true"/>
             <message key="variable.notPrivate" value="Variable ''{0}'' should be private."/>
         </module>
 
@@ -404,12 +406,12 @@
         <module name="TypecastParenPad"/>
 
         <module name="WhitespaceAfter"> 
-            <message key="ws.typeCast" value="Typecast is not followed by whitespace."/> 
+            <message key="ws.typeCast" value="Typecast is not followed by whitespace!!!"/> 
         </module>
 
         <module name="WhitespaceAround">
            <!-- removed PLUS, MINUS, STAR, DIV -->
-           <!-- removed GENERIC_START, GENERIC_END -->
+           <!-- removed GENERIC_START, GENERIC_END, WILDCARD_TYPE -->
            <property name="tokens"
             value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, 
                    BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON,  DIV_ASSIGN,
@@ -419,7 +421,7 @@
                    LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS_ASSIGN, MOD,
                    MOD_ASSIGN, NOT_EQUAL, PLUS_ASSIGN, QUESTION, RCURLY,
                    SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR_ASSIGN,
-                   TYPE_EXTENSION_AND, WILDCARD_TYPE"/>
+                   TYPE_EXTENSION_AND"/>
         </module>
 
     </module>
