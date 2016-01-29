@@ -6,7 +6,7 @@
  */
 
 import edu.princeton.cs.algs4.StdRandom;
-//import edu.princeton.cs.algs4.Stopwatch;
+import edu.princeton.cs.algs4.Stopwatch;
 
 /**
  * This class executes experiments on a Percolation system of size N x N.
@@ -158,15 +158,16 @@ public class PercolationStats {
       e.printStackTrace();
     }
 
-    // Stopwatch watch = new Stopwatch();
+    Stopwatch watch = new Stopwatch();
     PercolationStats stats = new PercolationStats(n, t);
-    // double elapsed = watch.elapsedTime();
+    double elapsed = watch.elapsedTime();
 
+    System.out.println("N = " + n + ", T = " + t);
     System.out.println("mean                    = " + stats.mean()); // 0.5929934999999997
     System.out.println("stddev                  = " + stats.stddev()); // 0.00876990421552567
     System.out.println("95% confidence interval = " + stats.confidenceLo() + ", " + stats.confidenceHi());
 
-    // System.out.println("elapsed = " + elapsed);
+    System.out.println("elapsed = " + elapsed);
 
   }
 }
