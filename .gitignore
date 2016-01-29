@@ -38,3 +38,4 @@ dependencies.txt
 
 # Quiz input files
 quiz*.txt
+*/files/*
