@@ -21,20 +21,21 @@ public class Percolation {
   /** The index of node representing the TOP where percolation starts. */
   private final int theTOP;
 
-  /** The index of node representing the BOTTOM where percolation ends. */
-  private final int theBOTTOM;
-
-  // /** The value telling if the system percolates or not. */
-  // private boolean percolates;
-
   /** The array tracking the sites that are open. */
   private boolean[] open = null;
 
   /** The union-find ADT tracking the connected sites for PERCOLATION. */
-  private WeightedQuickUnionUF uf = null;
+  // private WeightedQuickUnionUF uf = null;
+  /** The array tracking the ROOTS that are connected to TOP. */
+  private boolean[] toTop = null;
+  /** The array tracking the ROOTS that are connected to BOTTOM. */
+  private boolean[] toBottom = null;
+
+  /** The value telling if the system percolates or not. */
+  private boolean percolates = false;
 
   /** The union-find ADT tracking the connected sites for FULL. */
-  private WeightedQuickUnionUF ufFull = null;
+  private WeightedQuickUnionUF ufTop = null;
 
   /**
    * create N-by-N grid, with all sites blocked.
@@ -50,11 +51,17 @@ public class Percolation {
       throw new IllegalArgumentException("Provided size (" + N + ") is too big for N*N to be indexed by integers.");
     }
     this.N = N;
-    this.open = new boolean[N * N];
-    this.uf = new WeightedQuickUnionUF(N * N + 2);
-    this.ufFull = new WeightedQuickUnionUF(N * N + 1);
     this.theTOP = N * N;
-    this.theBOTTOM = this.theTOP + 1;
+    this.open = new boolean[N * N]; // N^2 x 1B
+    this.toTop = new boolean[N * N]; // N^2 x 1B
+    this.toBottom = new boolean[N * N];
+    this.ufTop = new WeightedQuickUnionUF(N * N + 1); // N^2 x 7B
+
+    for (int col = 1; col <= N; col++) {
+      toTop[index(1, col)] = true;
+      toBottom[index(N, col)] = true;
+    }
+
   }
 
   /**
@@ -92,36 +99,66 @@ public class Percolation {
 
       // connect UP
       if (row == 1) { // if row = 1 connect to TOP
-        uf.union(idx, theTOP);
-        ufFull.union(idx, theTOP);
+        if (toBottom[idx]) {
+          percolates = true;
+        }
+        ufTop.union(idx, theTOP);
       } else if (isOpenV(row - 1, col)) { // if UP isOpen connect to it
         int dest = index(row - 1, col);
-        uf.union(idx, dest);
-        ufFull.union(idx, dest);
+        updateTopBottom(ufTop.find(idx), ufTop.find(dest));
+        ufTop.union(idx, dest);
       }
 
       // connect LEFT
       if (col > 1 && isOpenV(row, col - 1)) {
         int dest = index(row, col - 1);
-        uf.union(idx, dest);
-        ufFull.union(idx, dest);
+        updateTopBottom(ufTop.find(idx), ufTop.find(dest));
+        ufTop.union(idx, dest);
       }
 
       // connect RIGHT
       if (col < N && isOpenV(row, col + 1)) {
         int dest = index(row, col + 1);
-        uf.union(idx, dest);
-        ufFull.union(idx, dest);
+        updateTopBottom(ufTop.find(idx), ufTop.find(dest));
+        ufTop.union(idx, dest);
       }
 
       // connect DOWN
       if (row == N) {
-        uf.union(idx, theBOTTOM);
+        if (toTop[idx]) {
+          percolates = true;
+        }
       } else if (isOpenV(row + 1, col)) { // if UP isOpen connect to it
         int dest = index(row + 1, col);
-        uf.union(idx, dest);
-        ufFull.union(idx, dest);
+        updateTopBottom(ufTop.find(idx), ufTop.find(dest));
+        ufTop.union(idx, dest);
       }
+
+    }
+  }
+
+  /**
+   * Update the mapping for roots to Top and Bottom & calculates percolation state.
+   * 
+   * @param myRoot the root of the site being open.
+   * @param destRoot the root of the site being connected to the newly open site.
+   */
+  private void updateTopBottom(int myRoot, int destRoot) {
+
+    if (toTop[myRoot]) {
+      toTop[destRoot] = true;
+    } else if (toTop[destRoot]) {
+      toTop[myRoot] = true;
+    }
+
+    if (toBottom[myRoot]) {
+      toBottom[destRoot] = true;
+    } else if (toBottom[destRoot]) {
+      toBottom[myRoot] = true;
+    }
+
+    if (toTop[myRoot] && toBottom[myRoot]) {
+      percolates = true;
     }
   }
 
@@ -154,7 +191,7 @@ public class Percolation {
   }
 
   private boolean isFullV(int row, int col) {
-    return isOpenV(row, col) && ufFull.connected(index(row, col), theTOP);
+    return isOpenV(row, col) && ufTop.connected(index(row, col), theTOP);
   }
 
   /**
@@ -164,11 +201,11 @@ public class Percolation {
    * @param col the column in the grid (1 based).
    */
   public boolean percolates() {
-    return uf.connected(theBOTTOM, theTOP);
+    return percolates;
   }
 
   // test client (optional)
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
 
     String file = "/input20.txt";
     if ((args.length != 0) && (args[0] != null) && (args[0].length() > 0)) {
@@ -181,7 +218,6 @@ public class Percolation {
     System.out.format("N=%d | file:%s%n", N, file);
 
     // repeatedly read in sites to open and draw resulting system
-    int n2 = N * N;
     int step = 1;
     while (!in.isEmpty()) {
       int i = in.readInt();
@@ -189,7 +225,11 @@ public class Percolation {
       perc.open(i, j);
       drawState(N, perc);
       System.out.format("%5d | open %3d %3d | %s%n", step, i, j, perc.percolates());
-      Thread.sleep(5 * step++ / N);
+      try {
+        Thread.sleep(5 * step++ / N);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
 
   }

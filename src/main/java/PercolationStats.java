@@ -146,7 +146,8 @@ public class PercolationStats {
     if (args.length < 2) {
       System.out.println("EXPECTED: java PercolationStats <N> <T>");
       System.out.println("          <N> is the size of the system; <T> is the number of experiemnts.");
-      System.exit(1);
+      // System.exit(1);
+      return;
     }
     int n = 1;
     int t = 1;
