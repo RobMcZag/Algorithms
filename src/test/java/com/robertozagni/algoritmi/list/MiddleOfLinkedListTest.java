@@ -18,69 +18,69 @@ import org.junit.Test;
 
 public class MiddleOfLinkedListTest {
 
-    @Test
-    public void theMiddleOfAnEmptyListIsNull() {
-        LinkedList<Object> emptyList = new LinkedList<Object>();
+  @Test(expected = IllegalArgumentException.class)
+  public void theMiddleOfAnEmptyListDoesNotExists() {
+    LinkedList<Object> emptyList = new LinkedList<Object>();
 
-        Object actual = MiddleOfLinkedList.findMiddle(emptyList);
+    Object actual = MiddleOfLinkedList.findMiddle(emptyList);
 
-        assertNull(actual);
-    }
+    assertNull(actual);
+  }
 
-    @Test
-    public void theMiddleOfAnListContainingJustAnItemIsTheItemItself() {
-        LinkedList<Object> list = new LinkedList<Object>();
-        Object anObject = new Object();
-        list.add(anObject);
+  @Test
+  public void theMiddleOfAnListContainingJustAnItemIsTheItemItself() {
+    LinkedList<Object> list = new LinkedList<Object>();
+    Object anObject = new Object();
+    list.add(anObject);
 
-        Object actual = MiddleOfLinkedList.findMiddle(list);
+    Object actual = MiddleOfLinkedList.findMiddle(list);
 
-        assertEquals(anObject, actual);
-    }
+    assertEquals(anObject, actual);
+  }
 
-    @Test
-    public void getsTheMiddleOfAList() {
-        Object middle = new Object();
-        LinkedList<Object> list = new LinkedList<Object>();
+  @Test
+  public void getsTheMiddleOfAList() {
+    Object middle = new Object();
+    LinkedList<Object> list = new LinkedList<Object>();
 
-        list.add(new Object());
-        list.add(new Object());
-        list.add(middle);
-        list.add(new Object());
-        list.add(new Object());
+    list.add(new Object());
+    list.add(new Object());
+    list.add(middle);
+    list.add(new Object());
+    list.add(new Object());
 
-        Object actual = MiddleOfLinkedList.findMiddle(list);
+    Object actual = MiddleOfLinkedList.findMiddle(list);
 
-        assertEquals(middle, actual);
-    }
+    assertEquals(middle, actual);
+  }
 
-    @Test
-    public void getsTheMiddleOfAListWithAnOddNumberOfItems() {
-        Object middle = new Object();
-        LinkedList<Object> list = new LinkedList<Object>();
+  @Test
+  public void getsTheMiddleOfAListWithAnOddNumberOfItems() {
+    Object middle = new Object();
+    LinkedList<Object> list = new LinkedList<Object>();
 
-        list.add(new Object());
-        list.add(middle);
-        list.add(new Object());
-        list.add(new Object());
+    list.add(new Object());
+    list.add(middle);
+    list.add(new Object());
+    list.add(new Object());
 
-        Object actual = MiddleOfLinkedList.findMiddle(list);
+    Object actual = MiddleOfLinkedList.findMiddle(list);
 
-        assertEquals(middle, actual);
-    }
+    assertEquals(middle, actual);
+  }
 
-    @Test
-    public void isOddIsTrueForOddNumbers() {
-        boolean actual = MiddleOfLinkedList.isOdd(101);
+  @Test
+  public void isOddIsTrueForOddNumbers() {
+    boolean actual = MiddleOfLinkedList.isOdd(101);
 
-        assertTrue(actual);
-    }
+    assertTrue(actual);
+  }
 
-    @Test
-    public void isOddIsFalseForEvenNumbers() {
-        boolean actual = MiddleOfLinkedList.isOdd(12);
+  @Test
+  public void isOddIsFalseForEvenNumbers() {
+    boolean actual = MiddleOfLinkedList.isOdd(12);
 
-        assertFalse(actual);
-    }
+    assertFalse(actual);
+  }
 
 }
