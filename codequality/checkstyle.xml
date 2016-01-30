@@ -18,6 +18,7 @@
         
     <module name="FileLength">
       <property name="max" value="1500"/>
+      <property name="fileExtensions" value ="java"/>
     </module>
 
     <!-- check .java and .txt files for non printable characters (excluding Tab, CR, LF) -->
