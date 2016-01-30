@@ -10,6 +10,30 @@
     <property name="charset" value="UTF-8"/>
     <property name="fileExtensions" value="java, txt"/>
 
+	<!-- =========================================================================== -->
+    <!--           Allow suppression of checks for following N lines.                -->
+    <!-- // CHECKSTYLE DISABLE <WarningName> FOR <# of lines> LINES                  -->
+	<!-- =========================================================================== -->
+	<module name="SuppressWithNearbyCommentFilter">
+	   <property name="commentFormat" value="CHECKSTYLE DISABLE ([\w\|]+) FOR (-?\d+) LINES"/>
+	   <property name="checkFormat" value="$1"/>
+	   <property name="influenceFormat" value="$2"/>
+	</module>
+    <!-- =========================================================================== -->
+	
+    <!-- =========================================================================== -->
+    <!--           Allow suppression of checks between two comments.                 -->
+    <!-- //CHECKSTYLE.OFF: IllegalCatch - Much more readable than catching 7 exceptions -->
+    <!--    ... some lines where "IllegalCatch" will be suppressed ...               -->
+    <!-- //CHECKSTYLE.ON: IllegalCatch                                               -->
+    <!-- =========================================================================== -->
+	<module name="SuppressionCommentFilter">
+	    <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+	    <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+	    <property name="checkFormat" value="$1"/>
+	</module>
+    <!-- =========================================================================== -->
+
     <module name="FileTabCharacter">
         <property name="eachLine" value="false"/>
         <message key="containsTab" value="Line contains a tab character. Configure your editor to replace tabs with spaces."/>
@@ -37,6 +61,10 @@
     <module name="TreeWalker">
         <property name="tabWidth" value="4"/>
 
+        <!-- =========================================================================== -->
+        <!-- Make comments available to filters                                          -->
+        <!-- =========================================================================== -->
+        <module name="FileContentsHolder"/>
 
         <!-- =========================================================================== -->
         <!-- Check for annotations                                                       -->

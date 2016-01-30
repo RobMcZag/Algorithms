@@ -26,14 +26,16 @@ public class ArrayOperationsTest {
   private static final int GIORNI = 31;
   private String[] mesi;
   private int[] giorni;
-  private int[] giorniInteri;
+
+  // CHECKSTYLE DISABLE IllegalType FOR 1 LINES
+  private Integer[] giorniInteri; // need Integer to show difference between int[] and Integer[]
 
   @Before
   public void setUp() throws Exception {
     mesi = Arrays.copyOf(MESI, MESI.length);
 
-    giorni = new int[GIORNI]; // 31 days, values from 1 to 31
-    giorniInteri = new int[GIORNI];
+    giorni = new int[GIORNI]; // 31 days, values from 1 to 31 @ positions 0 to 30
+    giorniInteri = new Integer[GIORNI];
     for (int i = 0; i < GIORNI; i++) {
       giorni[i] = i + 1;
       giorniInteri[i] = Integer.valueOf(i + 1);
