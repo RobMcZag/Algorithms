@@ -4,6 +4,7 @@
 # generated files
 build/**
 .gradle/**
+.*.md.html
 
 # Package Files #
 *.jar
