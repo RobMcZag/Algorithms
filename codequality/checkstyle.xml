@@ -10,6 +10,30 @@
     <property name="charset" value="UTF-8"/>
     <property name="fileExtensions" value="java, txt"/>
 
+	<!-- =========================================================================== -->
+    <!--           Allow suppression of checks for following N lines.                -->
+    <!-- // CHECKSTYLE DISABLE <WarningName> FOR <# of lines> LINES                  -->
+	<!-- =========================================================================== -->
+	<module name="SuppressWithNearbyCommentFilter">
+	   <property name="commentFormat" value="CHECKSTYLE DISABLE ([\w\|]+) FOR (-?\d+) LINES"/>
+	   <property name="checkFormat" value="$1"/>
+	   <property name="influenceFormat" value="$2"/>
+	</module>
+    <!-- =========================================================================== -->
+	
+    <!-- =========================================================================== -->
+    <!--           Allow suppression of checks between two comments.                 -->
+    <!-- //CHECKSTYLE.OFF: IllegalCatch - Much more readable than catching 7 exceptions -->
+    <!--    ... some lines where "IllegalCatch" will be suppressed ...               -->
+    <!-- //CHECKSTYLE.ON: IllegalCatch                                               -->
+    <!-- =========================================================================== -->
+	<module name="SuppressionCommentFilter">
+	    <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+	    <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+	    <property name="checkFormat" value="$1"/>
+	</module>
+    <!-- =========================================================================== -->
+
     <module name="FileTabCharacter">
         <property name="eachLine" value="false"/>
         <message key="containsTab" value="Line contains a tab character. Configure your editor to replace tabs with spaces."/>
@@ -18,6 +42,7 @@
         
     <module name="FileLength">
       <property name="max" value="1500"/>
+      <property name="fileExtensions" value ="java"/>
     </module>
 
     <!-- check .java and .txt files for non printable characters (excluding Tab, CR, LF) -->
@@ -36,6 +61,10 @@
     <module name="TreeWalker">
         <property name="tabWidth" value="4"/>
 
+        <!-- =========================================================================== -->
+        <!-- Make comments available to filters                                          -->
+        <!-- =========================================================================== -->
+        <module name="FileContentsHolder"/>
 
         <!-- =========================================================================== -->
         <!-- Check for annotations                                                       -->
@@ -64,6 +93,8 @@
         <!-- SPECIAL HACK FOR NON-STATIC PUBIC FINAL VARIABLE -->
         <module name="VisibilityModifier">
             <property name="publicMemberPattern" value="^SLOPE_ORDER$"/>
+            <property name="packageAllowed" value="true"/>
+            <property name="protectedAllowed" value="true"/>
             <message key="variable.notPrivate" value="Variable ''{0}'' should be private."/>
         </module>
 
@@ -404,12 +435,12 @@
         <module name="TypecastParenPad"/>
 
         <module name="WhitespaceAfter"> 
-            <message key="ws.typeCast" value="Typecast is not followed by whitespace."/> 
+            <message key="ws.typeCast" value="Typecast is not followed by whitespace!!!"/> 
         </module>
 
         <module name="WhitespaceAround">
            <!-- removed PLUS, MINUS, STAR, DIV -->
-           <!-- removed GENERIC_START, GENERIC_END -->
+           <!-- removed GENERIC_START, GENERIC_END, WILDCARD_TYPE -->
            <property name="tokens"
             value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, 
                    BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON,  DIV_ASSIGN,
@@ -419,7 +450,7 @@
                    LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS_ASSIGN, MOD,
                    MOD_ASSIGN, NOT_EQUAL, PLUS_ASSIGN, QUESTION, RCURLY,
                    SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR_ASSIGN,
-                   TYPE_EXTENSION_AND, WILDCARD_TYPE"/>
+                   TYPE_EXTENSION_AND"/>
         </module>
 
     </module>
