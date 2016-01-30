@@ -1,3 +1,4 @@
+package com.robertozagni.algoritmi.uf.percolation;
 
 /**
  * Percolation system of size N x N.

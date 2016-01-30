@@ -1,9 +1,12 @@
+package com.robertozagni.algoritmi.uf.percolation;
 
 /**
  * Executes experiments on a Percolation system of size N x N.
  *  
  * @author roberto.zagni - Copyright (c) 2016
  */
+
+import java.io.IOException;
 
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.Stopwatch;
@@ -156,6 +159,13 @@ public class PercolationStats {
       t = Integer.parseInt(args[1]);
     } catch (NumberFormatException e) {
       System.out.println("Could not convert to int one of the arguments: " + args[0] + ", " + args[0] + ".");
+      e.printStackTrace();
+    }
+
+    try {
+      System.out.println("READY to RUN?");
+      System.in.read();
+    } catch (IOException e) {
       e.printStackTrace();
     }
 

@@ -1,3 +1,4 @@
+package com.robertozagni.algoritmi.uf.percolation;
 
 /**
  * Percolation system of size N x N.
@@ -294,6 +295,54 @@ public class PercolationTest {
     assertTrue(p.percolates());
 
     assertFalse(p.isFull(5, 1)); // NO BackFill!
+  }
+
+  @Test
+  public void size1works() {
+    Percolation p = new Percolation(1);
+
+    assertFalse(p.isOpen(1, 1));
+    assertFalse(p.isFull(1, 1));
+    assertFalse(p.percolates());
+
+    p.open(1, 1);
+    assertTrue(p.isOpen(1, 1));
+    assertTrue(p.isFull(1, 1));
+    assertTrue(p.percolates());
+
+  }
+
+  @Test
+  public void size2works() {
+    Percolation p = new Percolation(2);
+
+    assertFalse(p.isOpen(1, 1));
+    assertFalse(p.isFull(1, 1));
+    assertFalse(p.isFull(1, 2));
+    assertFalse(p.isFull(2, 1));
+    assertFalse(p.isFull(2, 1));
+    assertFalse(p.percolates());
+
+    p.open(1, 1);
+    assertTrue(p.isOpen(1, 1));
+    assertTrue(p.isFull(1, 1));
+    assertFalse(p.percolates());
+
+    p.open(2, 2);
+    assertTrue(p.isOpen(2, 2));
+    assertFalse(p.isFull(2, 2));
+    assertFalse(p.percolates());
+
+    p.open(2, 1);
+    assertTrue(p.isOpen(2, 1));
+    assertTrue(p.isFull(2, 1));
+    assertTrue(p.percolates());
+
+    p.open(1, 2);
+    assertTrue(p.isOpen(1, 2));
+    assertTrue(p.isFull(1, 2));
+    assertTrue(p.percolates());
+
   }
 
 }

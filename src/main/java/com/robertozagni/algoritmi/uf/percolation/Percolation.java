@@ -1,3 +1,4 @@
+package com.robertozagni.algoritmi.uf.percolation;
 
 /**
  * Percolation system of size N x N.
@@ -91,10 +92,11 @@ public class Percolation {
   public void open(int row, int col) {
     validate(row);
     validate(col);
-    if (!isOpenV(row, col)) {
+
+    int idx = index(row, col);
+    if (!isOpenV(idx)) {
 
       // open it
-      int idx = index(row, col);
       open[idx] = true;
 
       // connect UP
@@ -103,24 +105,18 @@ public class Percolation {
           percolates = true;
         }
         ufTop.union(idx, theTOP);
-      } else if (isOpenV(row - 1, col)) { // if UP isOpen connect to it
-        int dest = index(row - 1, col);
-        updateTopBottom(ufTop.find(idx), ufTop.find(dest));
-        ufTop.union(idx, dest);
+      } else { // if UP isOpen connect to it
+        connectIfDestOpen(idx, row - 1, col);
       }
 
       // connect LEFT
-      if (col > 1 && isOpenV(row, col - 1)) {
-        int dest = index(row, col - 1);
-        updateTopBottom(ufTop.find(idx), ufTop.find(dest));
-        ufTop.union(idx, dest);
+      if (col > 1) {
+        connectIfDestOpen(idx, row, col - 1);
       }
 
       // connect RIGHT
-      if (col < N && isOpenV(row, col + 1)) {
-        int dest = index(row, col + 1);
-        updateTopBottom(ufTop.find(idx), ufTop.find(dest));
-        ufTop.union(idx, dest);
+      if (col < N) {
+        connectIfDestOpen(idx, row, col + 1);
       }
 
       // connect DOWN
@@ -128,13 +124,29 @@ public class Percolation {
         if (toTop[idx]) {
           percolates = true;
         }
-      } else if (isOpenV(row + 1, col)) { // if UP isOpen connect to it
-        int dest = index(row + 1, col);
-        updateTopBottom(ufTop.find(idx), ufTop.find(dest));
-        ufTop.union(idx, dest);
+      } else { // if UP isOpen connect to it
+        connectIfDestOpen(idx, row + 1, col);
       }
 
     }
+  }
+
+  /**
+   * Connect the site passed as index to the destination passed as row and col, if the destination is open.
+   * 
+   * @param idx the index of the site being open now
+   * @param destRow the row of the destination site
+   * @param destCol the col of the destination site
+   */
+  private void connectIfDestOpen(int idx, int destRow, int destCol) {
+    final int destIdx = index(destRow, destCol);
+
+    if (isOpenV(destIdx)) {
+      final int destRoot = ufTop.find(destIdx);
+      updateTopBottom(ufTop.find(idx), destRoot);
+      ufTop.union(idx, destRoot); // destIdx
+    }
+
   }
 
   /**
@@ -171,11 +183,11 @@ public class Percolation {
   public boolean isOpen(int row, int col) {
     validate(row);
     validate(col);
-    return isOpenV(row, col);
+    return isOpenV(index(row, col));
   }
 
-  private boolean isOpenV(int row, int col) {
-    return open[index(row, col)];
+  private boolean isOpenV(int idx) {
+    return open[idx];
   }
 
   /**
@@ -191,7 +203,8 @@ public class Percolation {
   }
 
   private boolean isFullV(int row, int col) {
-    return isOpenV(row, col) && ufTop.connected(index(row, col), theTOP);
+    final int idx = index(row, col);
+    return isOpenV(idx) && ufTop.connected(idx, theTOP);
   }
 
   /**
@@ -207,7 +220,7 @@ public class Percolation {
   // test client (optional)
   public static void main(String[] args) {
 
-    String file = "/input20.txt";
+    String file = "/input10.txt";
     if ((args.length != 0) && (args[0] != null) && (args[0].length() > 0)) {
       file = args[0];
     }
@@ -215,7 +228,8 @@ public class Percolation {
     int N = in.readInt(); // N-by-N percolation system
 
     Percolation perc = new Percolation(N);
-    System.out.format("N=%d | file:%s%n", N, file);
+    // ### Enable to stop waiting for input & allow to attach Profiler from jvisualvm ###
+    // System.out.format("N=%d | file:%s%n", N, file);
 
     // repeatedly read in sites to open and draw resulting system
     int step = 1;
@@ -223,14 +237,17 @@ public class Percolation {
       int i = in.readInt();
       int j = in.readInt();
       perc.open(i, j);
+      step++;
       drawState(N, perc);
       System.out.format("%5d | open %3d %3d | %s%n", step, i, j, perc.percolates());
-      try {
-        Thread.sleep(5 * step++ / N);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+      // try {
+      // Thread.sleep(5 * step / N);
+      // } catch (InterruptedException e) {
+      // e.printStackTrace();
+      // }
     }
+    // System.out.format("%5d | %s%n", step, perc.percolates());
+    // drawState(N, perc);
 
   }
 
@@ -239,16 +256,8 @@ public class Percolation {
    * @param perc
    */
   private static void drawState(int N, Percolation perc) {
-    String ANSI_CLS = "\u001b[2J";
-    String ANSI_HOME = "\u001b[H";
-    System.out.print(String.format("\033[H\033[2J")); // clear screen
-    // System.out.print(String.format("\033[2J")); // clear screen
+    System.out.print(String.format("\033[H\033[2J")); // clear screen (HOME "\u001b[H" + CLEAR "\u001b[2J")
 
-    // int count = 1;
-    // System.out.print(String.format("\033[%dA",count)); // Move up
-    // System.out.print("\033[2K"); // Erase line content
-
-    // System.out.println();
     for (int row = 1; row <= N; row++) {
       System.out.print(" ");
       for (int col = 1; col <= N; col++) {
