@@ -1,18 +1,18 @@
 package com.robertozagni.algoritmi.list;
 
-public interface Stack<T> extends Iterable<T> {
+public interface Stack<E> extends Iterable<E> {
 
   /**
    * Inserts the value on top of the stack.
    * 
    * @param value the value to be inserted.
    */
-  void push(T value);
+  void push(E value);
 
   /**
    * Returns the value on top of the stack and removes it from the stack.
    */
-  T pop();
+  E pop();
 
   /**
    * Return the number of values in the stack.

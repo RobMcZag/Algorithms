@@ -1,8 +1,30 @@
 package com.robertozagni.algoritmi.list;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ArrayStack<E> implements Stack<E> {
+
+  private class ArrayStackIterator implements Iterator<E> {
+
+    private int pos = N - 1;
+
+    @Override
+    public boolean hasNext() {
+      return pos >= 0;
+    }
+
+    @Override
+    public E next() {
+      return values[pos--];
+    }
+
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException("Remove operation is not supported by this iterator.");
+    }
+
+  }
 
   private static final int MIN_SIZE = 4;
 
@@ -14,20 +36,20 @@ public class ArrayStack<E> implements Stack<E> {
   /**
    * The array holding the values inserted into the array.
    */
-  private E[] vals = null;
+  private E[] values = null;
 
   public ArrayStack() {
 
     @SuppressWarnings("unchecked")
     E[] v = (E[]) new Object[MIN_SIZE]; // Tmp local var to allow suppression inside method.
-    vals = v;
+    values = v;
   }
 
   @Override
   public void push(E value) {
-    vals[N++] = value;
+    values[N++] = value;
 
-    if (N == vals.length) {
+    if (N == values.length) {
       resize(N * 2);
     }
 
@@ -36,8 +58,8 @@ public class ArrayStack<E> implements Stack<E> {
   private synchronized void resize(int size) {
     @SuppressWarnings("unchecked")
     E[] newvals = (E[]) new Object[size];
-    System.arraycopy(vals, 0, newvals, 0, N);
-    vals = newvals;
+    System.arraycopy(values, 0, newvals, 0, N);
+    values = newvals;
   }
 
   @Override
@@ -45,11 +67,11 @@ public class ArrayStack<E> implements Stack<E> {
     if (isEmpty()) {
       throw new NoSuchElementException("Stack is empty!");
     }
-    E val = vals[--N];
-    vals[N] = null;
+    E val = values[--N];
+    values[N] = null;
 
-    if (N > MIN_SIZE / 2 && vals.length > 4 * N) {
-      resize(vals.length / 2);
+    if (N > MIN_SIZE / 2 && values.length > 4 * N) {
+      resize(values.length / 2);
     }
 
     return val;
@@ -63,6 +85,11 @@ public class ArrayStack<E> implements Stack<E> {
   @Override
   public boolean isEmpty() {
     return N == 0;
+  }
+
+  @Override
+  public Iterator<E> iterator() {
+    return new ArrayStackIterator();
   }
 
   public static void main(String[] args) {
