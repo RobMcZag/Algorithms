@@ -69,7 +69,6 @@ public abstract class QueueTestBase<T extends Queue<E>, E> {
   @Test
   public void mixedSequence1() throws Exception {
     /* Perform selected number operations: positive means enqueue, negative dequeue. */
-    /* -------------- tot = 25| 75| +50| 60| +10| 25| ++0 */
     final int[] commands = {25, 50, -25, 10, -50, 15, -25};
 
     checkSequence(commands);
@@ -78,8 +77,15 @@ public abstract class QueueTestBase<T extends Queue<E>, E> {
   @Test
   public void mixedSequence2() throws Exception {
     /* Perform selected number operations: positive means enqueue, negative dequeue. */
-    /* -------------- tot = 25| 75| +50| 60| +10| 25| ++0 */
     final int[] commands = {15, -6, 4, -10, 4, -5, -1};
+
+    checkSequence(commands);
+  }
+
+  @Test
+  public void mixedSequence3() throws Exception {
+    /* Perform selected number operations: positive means enqueue, negative dequeue. */
+    final int[] commands = {32, -32, 9, -9, 64, -60, 20, -24};
 
     checkSequence(commands);
   }

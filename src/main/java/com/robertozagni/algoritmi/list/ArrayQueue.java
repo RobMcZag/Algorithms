@@ -43,9 +43,8 @@ public class ArrayQueue<E> implements Queue<E> {
 
     int idxF = index(first);
     int idxL = index(last);
-    // System.out.format("IN => idxF=%d | idxL=%d | c=%d | %s%n", idxF, idxL, count, Arrays.asList(values));
 
-    if (idxF <= idxL) {
+    if (idxF == 0 || idxF < idxL) {
       System.arraycopy(values, idxF, dest, 0, count);
     } else {
       System.arraycopy(values, idxF, dest, 0, values.length - idxF);
@@ -55,7 +54,6 @@ public class ArrayQueue<E> implements Queue<E> {
     values = dest;
     first = 0;
     last = count;
-    // System.out.format("OUT=> first=%d | last=%d | c=%d | %s%n", first, last, count, Arrays.asList(values));
   }
 
   @Override
