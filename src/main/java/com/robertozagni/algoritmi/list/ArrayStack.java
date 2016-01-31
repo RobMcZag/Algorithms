@@ -1,30 +1,25 @@
 package com.robertozagni.algoritmi.list;
 
-import java.lang.reflect.Array;
-import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 public class ArrayStack<E> implements Stack<E> {
+
+  private static final int MIN_SIZE = 4;
 
   /**
    * The number of elements into the Stack.
    */
   private int N = 0;
 
-  // /**
-  // * The runtime class of the values.
-  // */
-  // private Class<T> clazz;
-
   /**
    * The array holding the values inserted into the array.
    */
   private E[] vals = null;
 
-  public ArrayStack(Class<E> clazz) {
-    // this.clazz = clazz;
+  public ArrayStack() {
 
     @SuppressWarnings("unchecked")
-    E[] v = (E[]) Array.newInstance(clazz, 4); // Tmp local var to allow suppression inside method.
+    E[] v = (E[]) new Object[MIN_SIZE]; // Tmp local var to allow suppression inside method.
     vals = v;
   }
 
@@ -40,7 +35,7 @@ public class ArrayStack<E> implements Stack<E> {
 
   private synchronized void resize(int size) {
     @SuppressWarnings("unchecked")
-    E[] newvals = (E[]) Array.newInstance(vals.getClass().getComponentType(), size);
+    E[] newvals = (E[]) new Object[size];
     System.arraycopy(vals, 0, newvals, 0, N);
     vals = newvals;
   }
@@ -48,12 +43,12 @@ public class ArrayStack<E> implements Stack<E> {
   @Override
   public E pop() {
     if (isEmpty()) {
-      throw new EmptyStackException();
+      throw new NoSuchElementException("Stack is empty!");
     }
     E val = vals[--N];
     vals[N] = null;
 
-    if (N > 4 && vals.length > 4 * N) {
+    if (N > MIN_SIZE / 2 && vals.length > 4 * N) {
       resize(N / 2);
     }
 

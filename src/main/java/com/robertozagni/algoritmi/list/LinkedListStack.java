@@ -1,5 +1,7 @@
 package com.robertozagni.algoritmi.list;
 
+import java.util.NoSuchElementException;
+
 /**
  * Stack implementation using linked list.
  * 
@@ -7,7 +9,7 @@ package com.robertozagni.algoritmi.list;
  *
  * @param <E>
  */
-public class LinkeListStack<E> implements Stack<E> {
+public class LinkedListStack<E> implements Stack<E> {
 
   private class Node {
     E value = null;
@@ -52,6 +54,9 @@ public class LinkeListStack<E> implements Stack<E> {
    * Returns the first value of the list and removes it from the list.
    */
   public E pop() {
+    if (isEmpty()) {
+      throw new NoSuchElementException("Stack is empty!");
+    }
     E val = first.value;
     first = first.next;
     count--;
