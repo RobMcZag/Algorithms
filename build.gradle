@@ -5,7 +5,8 @@ apply plugin: 'findbugs'
 apply plugin: 'pmd'
 apply plugin: 'cobertura'
 
-sourceCompatibility = 1.6
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 group = 'com.robertozagni'
 version = '0.1'
 
