@@ -101,4 +101,49 @@ public abstract class StackTestBase<T extends Stack<E>, E> {
 
   }
 
+  @Test
+  public void sizeIsCorrect() throws Exception {
+
+    assertEquals(0, stack.size());
+
+    stack.push(generateValue());
+    assertEquals(1, stack.size());
+
+    stack.pop();
+    assertEquals(0, stack.size());
+
+    final int sizeToTest = 50;
+    for (int i = 0; i < sizeToTest; i++) {
+      stack.push(generateValue());
+    }
+    assertEquals(sizeToTest, stack.size());
+    assertFalse(stack.isEmpty());
+
+    for (int i = 0; i < sizeToTest; i++) {
+      stack.pop();
+    }
+    assertEquals(0, stack.size());
+    assertTrue(stack.isEmpty());
+  }
+
+  @Test
+  public void longPushPop() throws Exception {
+
+    final int sizeToTest = 1000;
+    @SuppressWarnings("unchecked")
+    E[] vals = (E[]) new Object[sizeToTest];
+
+    for (int i = 0; i < sizeToTest; i++) {
+      vals[i] = generateValue();
+      stack.push(vals[i]);
+    }
+    assertEquals(sizeToTest, stack.size());
+    assertFalse(stack.isEmpty());
+
+    for (int i = sizeToTest - 1; i >= 0; i--) {
+      assertEquals(vals[i], stack.pop());
+    }
+    assertEquals(0, stack.size());
+    assertTrue(stack.isEmpty());
+  }
 }

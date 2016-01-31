@@ -49,7 +49,7 @@ public class ArrayStack<E> implements Stack<E> {
     vals[N] = null;
 
     if (N > MIN_SIZE / 2 && vals.length > 4 * N) {
-      resize(N / 2);
+      resize(vals.length / 2);
     }
 
     return val;
