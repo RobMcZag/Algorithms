@@ -146,4 +146,33 @@ public abstract class StackTestBase<T extends Stack<E>, E> {
     assertEquals(0, stack.size());
     assertTrue(stack.isEmpty());
   }
+
+  @Test
+  public void iteratorReturnsAllElements() throws Exception {
+
+    final int sizeToTest = 100;
+    @SuppressWarnings("unchecked")
+    E[] vals = (E[]) new Object[sizeToTest];
+
+    for (int i = 0; i < sizeToTest; i++) {
+      vals[i] = generateValue();
+      stack.push(vals[i]);
+    }
+
+    int i = sizeToTest;
+    for (E val : stack) {
+      assertEquals(vals[--i], val);
+    }
+    assertEquals(sizeToTest, stack.size());
+    assertFalse(stack.isEmpty());
+
+    i = sizeToTest;
+    for (E val : stack) {
+      assertEquals(vals[--i], stack.pop());
+    }
+    assertEquals(0, stack.size());
+    assertTrue(stack.isEmpty());
+
+  }
+
 }

@@ -1,6 +1,6 @@
 package com.robertozagni.algoritmi.list;
 
-public interface Stack<T> {
+public interface Stack<T> extends Iterable<T> {
 
   /**
    * Inserts the value on top of the stack.

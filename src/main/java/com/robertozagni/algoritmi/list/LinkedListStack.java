@@ -1,5 +1,7 @@
 package com.robertozagni.algoritmi.list;
 
+import java.nio.channels.UnsupportedAddressTypeException;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -25,7 +27,33 @@ public class LinkedListStack<E> implements Stack<E> {
       this.value = value;
       this.next = next;
     }
+  }
 
+  private class LinkedListStackIterator implements Iterator<E> {
+
+    Node current = first;
+
+    public boolean hasNext() {
+      return current != null;
+    }
+
+    public E next() {
+      if (hasNext()) {
+        E val = current.value;
+        current = current.next;
+        return val;
+      }
+      throw new NoSuchElementException("There is no next element to return.");
+    }
+
+    /**
+     * Unsupported operation.
+     * 
+     * @throws UnsupportedAddressTypeException
+     */
+    public void remove() {
+      throw new UnsupportedAddressTypeException();
+    }
   }
 
   /* *** Linked List *** */
@@ -68,6 +96,11 @@ public class LinkedListStack<E> implements Stack<E> {
    */
   public long size() {
     return count;
+  }
+
+  @Override
+  public Iterator<E> iterator() {
+    return new LinkedListStackIterator();
   }
 
   public static void main(String[] args) {
