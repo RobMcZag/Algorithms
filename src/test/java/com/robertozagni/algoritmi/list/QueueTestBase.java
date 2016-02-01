@@ -27,6 +27,8 @@ public abstract class QueueTestBase<T extends Queue<E>, E> {
   @Test
   public void canCreateQueue() throws Exception {
     assertNotNull(queue);
+    assertTrue(queue.isEmpty());
+    assertEquals(0, queue.size());
   }
 
   @Test(expected = NoSuchElementException.class)
@@ -93,7 +95,7 @@ public abstract class QueueTestBase<T extends Queue<E>, E> {
   /**
    * @param commands
    */
-  private void checkSequence(final int[] commands) {
+  private E[] checkSequence(final int[] commands) {
 
     int maxSize = 0;
     for (int ops : commands) {
@@ -132,6 +134,56 @@ public abstract class QueueTestBase<T extends Queue<E>, E> {
     }
 
     assertEquals(tot == 0, queue.isEmpty());
+    return vals;
   }
 
+  @Test
+  public void iteratorReturnsAllElements1() throws Exception {
+
+    final int[] commands = {7, -5, 3}; // Wrote 10, consumed 5
+    E[] vals = checkSequence(commands);
+
+    int pos = (10 - 5);
+    for (E val : queue) {
+      assertEquals(vals[pos++], val);
+    }
+  }
+
+  @Test
+  public void iteratorReturnsAllElements2() throws Exception {
+
+    final int[] commands = {32, -32, 9, -9, 64, -60, 20, -24};
+    E[] vals = checkSequence(commands);
+
+    int pos = (32 - 32 + 9 - 9 + 64 - 60 + 20 - 24);
+    for (E val : queue) {
+      assertEquals(vals[pos++], val);
+    }
+  }
+
+  @Test
+  public void iteratorReturnsZeroElementsForEmptyQueue() throws Exception {
+
+    assertTrueIsEmptyAndIteratorReturnsZeroElements(queue);
+
+    final int[] commands = {10, -5, -5};
+    checkSequence(commands);
+    assertTrueIsEmptyAndIteratorReturnsZeroElements(queue);
+
+  }
+
+  /**
+   * @param aQueue TODO
+   * 
+   */
+  private void assertTrueIsEmptyAndIteratorReturnsZeroElements(T aQueue) {
+    assertTrue(aQueue.isEmpty());
+    assertEquals(0, aQueue.size());
+    // # iterator for Empty queue returns 0 elements
+    int count = 0;
+    for (E val : aQueue) {
+      count++;
+    }
+    assertEquals(0, count);
+  }
 }
