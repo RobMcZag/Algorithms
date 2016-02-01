@@ -217,9 +217,15 @@ public class BasicNode<V extends Comparable<V>> implements Node<V> {
 
   }
 
+  @Override
+  public int hashCode() {
+    return listValues().hashCode();
+  }
+
   /**
-   * boolean equals(Object o) Compares the specified object with this collection for equality.
+   * boolean equals(Object o) Compares the specified object with this for equality.
    */
+  @Override
   public boolean equals(Object obj) {
     if (obj instanceof Node<?>) {
       @SuppressWarnings("unchecked")

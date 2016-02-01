@@ -101,4 +101,9 @@ public class BinarySearchTree<V extends Comparable<V>> {
     return false;
   }
 
+  @Override
+  public int hashCode() {
+    return listValues().hashCode();
+  }
+
 }
