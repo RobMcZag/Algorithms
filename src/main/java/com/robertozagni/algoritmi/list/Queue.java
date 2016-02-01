@@ -1,6 +1,6 @@
 package com.robertozagni.algoritmi.list;
 
-public interface Queue<E> {
+public interface Queue<E> extends Iterable<E> {
 
   /**
    * Insert a new element onto queue
