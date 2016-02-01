@@ -1,13 +1,43 @@
 package com.robertozagni.algoritmi.list;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ArrayQueue<E> implements Queue<E> {
 
+  public class ArrayQueueIterator implements Iterator<E> {
+
+    int pos = first;
+
+    @Override
+    public boolean hasNext() {
+      return pos < last;
+    }
+
+    @Override
+    public E next() {
+      return values[index(pos++)];
+    }
+
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException("Remove operation is not supported by this iterator.");
+    }
+
+  }
+
   private static final int MIN_SIZE = 4;
+
+  /** The position of the first item, the one that will be returned next. */
   private int first = 0;
+
+  /** The next position to be used in the array, where the next item will be inserted. */
   private int last = 0;
+
+  /** The number of items in the queue. */
   private int count = 0;
+
+  /** The array containing the elements in the queue. Will be resized up and down upon necessity. */
   private E[] values = null;
 
   /**
@@ -72,6 +102,11 @@ public class ArrayQueue<E> implements Queue<E> {
   @Override
   public boolean isEmpty() {
     return count == 0;
+  }
+
+  @Override
+  public Iterator<E> iterator() {
+    return new ArrayQueueIterator();
   }
 
   @Override
