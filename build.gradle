@@ -5,8 +5,8 @@ apply plugin: 'findbugs'
 apply plugin: 'pmd'
 apply plugin: 'cobertura'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
 group = 'com.robertozagni'
 version = '0.1'
 
@@ -93,7 +93,15 @@ tasks.withType(FindBugs) {
     }
 }
 pmd {
+    toolVersion = "5.2.3"
     ignoreFailures = true 
+    ruleSetFiles = files('codequality/pmdrulesets.xml')
+    ruleSets = []
+           // 'java-android','java-basic', 'java-braces', 'java-clone', 'java-codesize', 'java-comments', 
+           // 'java-controversial', 'java-coupling', 'java-design', 'java-empty', 'java-finalizers', 'java-imports',
+           // 'java-j2ee', 'java-javabeans', 'java-junit', 'java-logging-jakarta-commons', 'java-logging-java',
+           // 'java-migrating', 'java-naming', 'java-optimizations', 'java-strictexception', 'java-strings',
+           // 'java-sunsecure', 'java-typeresolution', 'java-unnecessary', 'java-unusedcode'
 }
 cobertura {
     coverageFormats = ['html', 'xml']
