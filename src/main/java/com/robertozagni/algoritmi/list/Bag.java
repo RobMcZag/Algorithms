@@ -1,5 +1,7 @@
 package com.robertozagni.algoritmi.list;
 
+import java.util.Iterator;
+
 /**
  * A collection of objects that only allows to add elements, count and enumerate the content.
  * 
@@ -7,7 +9,7 @@ package com.robertozagni.algoritmi.list;
  *
  * @param <E> The type of the elements of the collection.
  */
-public interface Bag<E> {
+public interface Bag<E> extends Iterable<E> {
 
   /**
    * Insert a new element onto bag.
@@ -24,5 +26,5 @@ public interface Bag<E> {
   /**
    * Returns an iterator to enumerate all items in bag.
    */
-  Iterable<E> iterator();
+  Iterator<E> iterator();
 }
