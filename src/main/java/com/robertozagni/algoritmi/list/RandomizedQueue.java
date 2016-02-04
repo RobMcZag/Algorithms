@@ -5,18 +5,18 @@ import java.util.NoSuchElementException;
 
 import edu.princeton.cs.algs4.StdRandom;
 
-public class RandomizedQueue<E> implements Iterable<E> {
+public class RandomizedQueue<Item> implements Iterable<Item> {
 
-  private static class RandomizedQueueIterator<E> implements Iterator<E> {
+  private static class RandomizedQueueIterator<Item> implements Iterator<Item> {
 
     private int pos = 0;
     private final int N;
-    private final E[] itvals;
+    private final Item[] itvals;
 
     @SuppressWarnings("unchecked")
-    RandomizedQueueIterator(E[] v, int n) {
+    RandomizedQueueIterator(Item[] v, int n) {
       N = n;
-      itvals = (E[]) new Object[N];
+      itvals = (Item[]) new Object[N];
       System.arraycopy(v, 0, itvals, 0, N);
       StdRandom.shuffle(itvals);
     }
@@ -27,7 +27,7 @@ public class RandomizedQueue<E> implements Iterable<E> {
     }
 
     @Override
-    public E next() {
+    public Item next() {
       if (pos >= N) {
         throw new NoSuchElementException("There are no more elements in this iterator.");
       }
@@ -41,9 +41,9 @@ public class RandomizedQueue<E> implements Iterable<E> {
 
   }
 
-  private static final int MIN_SIZE = 8;
+  private static final int MIN_SIZE = 4;
 
-  private E[] vals = null;
+  private Item[] vals = null;
 
   private int count = 0;
 
@@ -52,7 +52,7 @@ public class RandomizedQueue<E> implements Iterable<E> {
    */
   public RandomizedQueue() {
     @SuppressWarnings("unchecked")
-    E[] v = (E[]) new Object[MIN_SIZE];
+    Item[] v = (Item[]) new Object[MIN_SIZE];
     vals = v;
   }
 
@@ -75,7 +75,7 @@ public class RandomizedQueue<E> implements Iterable<E> {
    * 
    * @param item the item to be added.
    */
-  public void enqueue(E item) {
+  public void enqueue(Item item) {
     if (item == null) {
       throw new NullPointerException("This queue does not support null values.");
     }
@@ -88,7 +88,7 @@ public class RandomizedQueue<E> implements Iterable<E> {
   private void resize(int n) {
     // System.out.format("Count is %4d => from %4d to %4d.%n", count, vals.length, n);
     @SuppressWarnings("unchecked")
-    E[] dest = (E[]) new Object[n];
+    Item[] dest = (Item[]) new Object[n];
     System.arraycopy(vals, 0, dest, 0, count);
     vals = dest;
   }
@@ -96,12 +96,12 @@ public class RandomizedQueue<E> implements Iterable<E> {
   /**
    * Remove and return a random item.
    */
-  public E dequeue() {
+  public Item dequeue() {
     if (isEmpty()) {
       throw new NoSuchElementException("This queue is empty.");
     }
     int pos = StdRandom.uniform(count--);
-    E val = vals[pos];
+    Item val = vals[pos];
     vals[pos] = vals[count];
     vals[count] = null;
     if (count >= MIN_SIZE / 2 && count == vals.length / 4) {
@@ -113,7 +113,7 @@ public class RandomizedQueue<E> implements Iterable<E> {
   /**
    * Return (but do not remove) a random item.
    */
-  public E sample() {
+  public Item sample() {
     if (isEmpty()) {
       throw new NoSuchElementException("This queue is empty.");
     }
@@ -124,8 +124,8 @@ public class RandomizedQueue<E> implements Iterable<E> {
   /**
    * Return an independent iterator over items in random order.
    */
-  public Iterator<E> iterator() {
-    return new RandomizedQueueIterator<E>(vals, count);
+  public Iterator<Item> iterator() {
+    return new RandomizedQueueIterator<Item>(vals, count);
   }
 
   /**
