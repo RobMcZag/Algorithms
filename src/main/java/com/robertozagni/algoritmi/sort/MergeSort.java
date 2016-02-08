@@ -1,17 +1,12 @@
 package com.robertozagni.algoritmi.sort;
 
-import java.util.Arrays;
-
 import edu.princeton.cs.algs4.StdIn;
 
 public class MergeSort extends SortBase {
 
-  private static int mergeNum = 0;
-
   public static <T extends Comparable<T>> void sort(T[] a) {
     int N = a.length;
     T[] aux = (T[]) new Comparable[N];
-    System.out.format("Start - %s%n", Arrays.asList(a));
     sort(a, aux, 0, N - 1);
   }
 
@@ -26,7 +21,6 @@ public class MergeSort extends SortBase {
     sort(a, aux, start, half);
     sort(a, aux, half + 1, end);
     merge(a, aux, start, half, end);
-    System.out.format("Mergr n.%d - %s%n", ++mergeNum, Arrays.asList(a));
   }
 
   private static <T extends Comparable<T>> void merge(T[] a, T[] aux, int start, int half, int end) {
