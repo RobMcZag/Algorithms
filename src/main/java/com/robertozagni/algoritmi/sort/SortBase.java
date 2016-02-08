@@ -57,9 +57,9 @@ public abstract class SortBase {
     return true;
   }
 
-  protected static void show(String[] a) {
-    for (String string : a) {
-      System.out.print(string + " ");
+  protected static <T> void show(T[] a) {
+    for (T val : a) {
+      System.out.print(val + " ");
     }
     System.out.println();
   }
