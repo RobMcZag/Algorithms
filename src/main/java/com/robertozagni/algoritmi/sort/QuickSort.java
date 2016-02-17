@@ -20,7 +20,7 @@ public class QuickSort extends SortBase {
       return;
     }
 
-    int p = partition2(a, start, end);
+    int p = partition(a, start, end);
 
     sort(a, start, p - 1);
     sort(a, p + 1, end);
